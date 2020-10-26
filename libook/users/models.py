@@ -2,6 +2,7 @@ from django.db import models
 
 # Create your models here.
 
+
 class User(models.Model):
     id = models.DecimalField()
     email = models.EmailField()
@@ -11,8 +12,10 @@ class User(models.Model):
     surname = models.CharField(max_length=15)
     birthdate = models.DateField()
     telephone = models.DecimalField(max_digits=12)
+    # User Model correct implemented?
 
-    def __init__(self, id, email, username, password, name, surname, birthdate, telephone):
+    def __init__(self, id, email, username, password, name, surname, birthdate, telephone, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         self.id = id
         self.email = email
         self.username = username
@@ -39,7 +42,8 @@ class Comment(models.Model):
     # post_id
     content = models.TextField(max_length=120)
 
-    def __init__(self, id, user_id, post_id, content):
+    def __init__(self, id, user_id, post_id, content, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         self.id = id
         self.user_id = user_id
         self.post_id = post_id
@@ -52,7 +56,8 @@ class Feed(models.Model):
     # post_id
     access_type = models.TextField(max_length=120)
 
-    def __init__(self, id, user_id, post_id, content):
+    def __init__(self, id, user_id, post_id, content, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         self.id = id
         self.user_id = user_id
         self.post_id = post_id
