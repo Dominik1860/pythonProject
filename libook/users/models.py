@@ -1,4 +1,5 @@
 from django.db import models
+from enum import Enum
 
 # Create your models here.
 
@@ -63,8 +64,6 @@ class Feed(models.Model):
         self.post_id = post_id
         self.access_type = access_type
 
-
-# from enum import Enum
 class Access_Type(Enum):
     private = 1
     public = 2
