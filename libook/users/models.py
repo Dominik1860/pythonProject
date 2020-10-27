@@ -1,47 +1,71 @@
 from django.db import models
-from enum import Enum
+from datetime import datetime
+from enum import IntEnum
 
-# Create your models here.
+
+class AccessTypes(IntEnum):
+    """
+    Enumeration for privacy definition of post or feed
+    """
+    PRIVATE = 0
+    PUBLIC = 1
+
+    @classmethod
+    def choices(cls):
+        return[(key.value, key.name) for key in cls]
+
+
+# class PostTypeEnum(models.IntegerField):
+#     """
+#     Enumeration for defining the content type of a post
+#     """
+#     TEXT = 0, ('Text')
+#     IMAGE = 1, ('Image')
+#     VIDEO = 2, ('Video')
+
 
 class User(models.Model):
-    id = models.DecimalField()
-    email = models.EmailField()
+    """
+    Model class for an users
+    """
+
+    # def __init__(self, id, email, username, password, name, surname, birthdate, telephone, *args, **kwargs):
+    #     super().__init__(*args, **kwargs)
+    #     self.id = id
+    #     self.email = email
+    #     self.username = username
+    #     self.password = password
+    #     self.name = name
+    #     self.surname = surname
+    #     self.birthdate = birthdate
+    #     self.telephone = telephone
+
     username = models.CharField(max_length=15)
     password = models.CharField(max_length=15)
+    email = models.EmailField()
     name = models.CharField(max_length=15)
     surname = models.CharField(max_length=15)
     birthdate = models.DateField()
-    telephone = models.DecimalField(max_digits=12)
-    test_attr2 = models.IntegerField()
-    # User Model correct implemented?
+    telephone = models.CharField(max_length=12)
+    privacy_settings = models.TextField(choices=AccessTypes.choices(), default=AccessTypes.PUBLIC)
 
-    def __init__(self, id, email, username, password, name, surname, birthdate, telephone, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.id = id
-        self.email = email
-        self.username = username
-        self.password = password
-        self.name = name
-        self.surname = surname
-        self.birthdate = birthdate
-        self.telephone = telephone
+    def getAge(self):
+        """
+        Calculates the age of the user
+        """
+        today = datetime.date.today()
+        age = today.year - self.birthdate.year
 
-        def age(self):
-            today = datetime.date.today()
-            age = today.year - self.birthdate.year
-
-            if today < datetime.date(today.year, self.birthdate.month, self.birthdate.day):
-                age -= 1
-
-            return age
-        # calculates the age of user
+        return age if (today < datetime.date(today.year, self.birthdate.month, self.birthdate.day)) else age - 1
 
 
 class Comment(models.Model):
-    id = models.DecimalField()
-    # user_id
-    # post_id
-    content = models.TextField(max_length=120)
+    """
+    Model class for a comment from a particular users (1:1) to a particular post (1:1)
+    """
+    user_id = models.ForeignKey('user', on_delete=models.CASCADE)
+    post_id = models.ForeignKey('post', on_delete=models.CASCADE)
+    content = models.TextField(null=False, blank=False, max_length=255)
 
     def __init__(self, id, user_id, post_id, content, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -49,21 +73,3 @@ class Comment(models.Model):
         self.user_id = user_id
         self.post_id = post_id
         self.content = content
-
-
-class Feed(models.Model):
-    id = models.DecimalField()
-    # user_id
-    # post_id
-    access_type = models.TextField(max_length=120)
-
-    def __init__(self, id, user_id, post_id, content, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.id = id
-        self.user_id = user_id
-        self.post_id = post_id
-        self.access_type = access_type
-
-class Access_Type(Enum):
-    private = 1
-    public = 2
