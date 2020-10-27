@@ -12,7 +12,6 @@ class User(models.Model):
     surname = models.CharField(max_length=15)
     birthdate = models.DateField()
     telephone = models.DecimalField(max_digits=12)
-    test_attr = models.IntegerField()
     # User Model correct implemented?
 
     def __init__(self, id, email, username, password, name, surname, birthdate, telephone, *args, **kwargs):
