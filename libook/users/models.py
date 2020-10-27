@@ -3,7 +3,6 @@ from enum import Enum
 
 # Create your models here.
 
-
 class User(models.Model):
     id = models.DecimalField()
     email = models.EmailField()
