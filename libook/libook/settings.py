@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 # Apps for project
     'users',
     'posts',
+    'libook',
 
     ]
 

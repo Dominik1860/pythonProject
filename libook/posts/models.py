@@ -1,9 +1,5 @@
 from django.db import models
-from ..enums import AccessTypes, PostTypes
-import sys
-from os import path
-
-sys.path.insert(path.dirname(path.dirname(path.abspath(__file__))))
+from .enums import *
 
 class Post(models.Model):
     """

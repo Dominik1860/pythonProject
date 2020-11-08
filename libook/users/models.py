@@ -1,7 +1,6 @@
 from django.db import models
 from datetime import datetime
-# from ..libook.enums import AccessTypes, ReactionTypes
-import enums
+from .enums import *
 
 class User(models.Model):
     """
@@ -15,7 +14,7 @@ class User(models.Model):
     surname = models.CharField(max_length=15)
     birthdate = models.DateField()
     telephone = models.CharField(max_length=12)
-    privacy_settings = models.TextField(choices=enums.AccessTypes.choices(), default=enums.AccessTypes.PUBLIC)
+    privacy_settings = models.TextField(choices=AccessTypes.choices(), default=AccessTypes.PUBLIC)
 
     def getAge(self):
         """
