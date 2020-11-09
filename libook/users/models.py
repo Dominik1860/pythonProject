@@ -2,6 +2,7 @@ from django.db import models
 from datetime import datetime
 from .enums import *
 
+
 class User(models.Model):
     """
     Model class for an user
@@ -30,6 +31,6 @@ class Reaction(models.Model):
     """
     Model class for a reaction from a particular user (1:1) to a particular post (1:1)
     """
-    user_id = models.ForeignKey('user', on_delete=models.CASCADE)
-    post_id = models.ForeignKey('post', on_delete=models.CASCADE)
+    user_id = models.ForeignKey('users.user', on_delete=models.CASCADE)
+    post_id = models.ForeignKey('posts.post', on_delete=models.CASCADE)
     # reaction_type = models.TextField(choices=ReactionTypes.choices(), default=ReactionTypes.LIKE)

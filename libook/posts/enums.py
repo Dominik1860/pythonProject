@@ -21,6 +21,15 @@ class PostTypes(Enum):
     IMAGE = 1, ('Image')
     VIDEO = 2, ('Video')
 
+    @classmethod
+    def choices(cls):
+        # return [(key.value, key.name) for key in cls]
+        return [
+            (0, 'Text'),
+            (1, 'Image'),
+            (2, 'Video')
+        ]
+
 
 class ReactionTypes(Enum):
     """
@@ -28,3 +37,7 @@ class ReactionTypes(Enum):
     """
     LIKE = 0, ('Like')
     SHARE = 1, ('Share')
+
+    @classmethod
+    def choices(cls):
+        return [(key.value, key.name) for key in cls]
