@@ -14,13 +14,9 @@ class User(models.Model):
     email = models.EmailField()
     name = models.CharField(max_length=15)
     surname = models.CharField(max_length=15)
-    image = models.ImageField(default='default.png', upload_to='profile_pics')
     birthdate = models.DateField()
     telephone = models.CharField(max_length=12)
     privacy_settings = models.TextField(choices=AccessTypes.choices(), default=AccessTypes.PUBLIC)
-
-    def __str__(self):
-        return str(self.user.username)
 
     def getAge(self):
         """

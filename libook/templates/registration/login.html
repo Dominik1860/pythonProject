@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<div class="row my-5 py-5">
+    <h1>Welcome to LiBook!</h1>
+    <h5>Place to socialize with your classmates.</h5>
+</div>
+
+<div class="row py-5">
+    <div class="col-12 col-sm-6 px-2">
+        {% if next %}
+        {% if user.is_authenticated %}
+        <p>Your account doesn't have access to this page. To proceed,
+            please login with an account that has access.</p>
+        {% else %}
+        <p>Please login to see this page.</p>
+        {% endif %}
+        {% endif %}
+
+        <h6>Login form</h6>
+        <form action="{% url 'login' %}" method="post">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <td>{{ form.username.label_tag }}</td>
+                    <td>{{ form.username }}</td>
+                </tr>
+                <tr>
+                    <td>{{ form.password.label_tag }}</td>
+                    <td>{{ form.password }}</td>
+                </tr>
+            </table>
+            {% if form.errors %}
+            <p>Your username and password didn't match. Please try again.</p>
+            {% endif %}
+            <button class="btn btn-primary" type="submit" value="login">Log in</button>
+            <input name="next" type="hidden" value="{{ next }}"/>
+        </form>
+    </div>
+    <div class="col-12 col-sm-6 px-2">
+        <h6>Registration form</h6>
+    </div>
+</div>
+
+
+<!--{# Assumes you setup the password_reset view in your URLconf #}-->
+<!--<p><a href="{% url 'password_reset' %}">Lost password?</a></p>-->
+
+{% endblock %}
