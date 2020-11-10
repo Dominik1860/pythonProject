@@ -1,18 +1,28 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.generic import View
+from .models import Post
 
-# Create your views here.
-
-def home_views(*args, **kwargs):
-    return HttpResponse("<h1>welcome to my web !</h1>""")
 
 class IndexView(View):
+    def get(self):
+        return HttpResponse("<h1></h1>")
+
     def post(self, request, *args, **kwargs):
-        return HttpResponse("views")
+        return None
 
 
-def comment(self,request,*args, **kwargs):
-   return HttpResponse("<h1> my post!</h1>")
+def home_view(request, *args, **kwargs):
+    return HttpResponse("<h1>welcome to my web !</h1>")
 
 
+def detail_view(request, *args, **kwargs):
+    id = kwargs['id']  # keyword arguments
+
+    post = Post.objects.get(pk=id)
+
+    return HttpResponse(f"<h1>post id in kwargs: {id}</h1>")
+
+
+def comment(request, *args, **kwargs):
+    return HttpResponse("<h1> my post!</h1>")
