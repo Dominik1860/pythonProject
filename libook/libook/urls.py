@@ -5,13 +5,16 @@ from django.views.generic.base import RedirectView
 from . import views
 
 urlpatterns = [
-    # path('', views.LoginView.as_view()),
-    path('', RedirectView.as_view(url='/login')),
-    path('', include('django.contrib.auth.urls')),
     path('admin/', admin.site.urls),
-    path('home/', login_required(views.HomeView.as_view())),
+
+    path('', RedirectView.as_view(url='/login')), # Default redirect to /login
+    path('', include('django.contrib.auth.urls')), # All login requests
+    path('home/', login_required(views.HomeView.as_view())), # Dashboard for logged in user
+    path('register/', views.register, name='register'), # Register a new user
+
+
     path('posts/', include('posts.urls')),
-    path('users/', include('users.urls')),
+    path('profiles/', include('profiles.urls')),
 ]
 
 # path('accounts/', include('django.contrib.auth.urls')),

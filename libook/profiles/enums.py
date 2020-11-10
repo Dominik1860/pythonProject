@@ -5,7 +5,7 @@ class AccessTypes(IntEnum):
     """
     Enumeration for privacy definition of post or feed
     """
-    PRIVATE = 0
+    PRIVATE = 0,
     PUBLIC = 1
 
     @classmethod

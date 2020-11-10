@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # Apps for project
-    'users',
+    'profiles',
     'posts',
     'libook',
 

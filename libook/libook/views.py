@@ -1,26 +1,34 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import View
-from django.http import HttpResponse
+from django.contrib.auth.models import User
 from . import forms
 
-
-class LoginView(View):
-    context = {'form': forms.UserForm()}
-
-    def get(self, request):
-        return render(request, 'home/login.html', self.context)
 
 class HomeView(View):
     context = {}
 
     def get(self, request):
-        return render(request,'home/index.html', self.context)
+        return render(request, 'home/index.html', self.context)
 
-def index(request):
-    # not logged in, register form
-    form = forms.RegistrationForm()
-    return render(request, 'home/login.html', context={'registration_form': form})
 
-    # logged in
-    form = forms.CommentForm()
-    return render(request, 'home/index.html', context={'form': form})
+def register(request):
+    """
+    Creates a new user from POST request
+    """
+    if request.method == 'POST':
+        user_form = forms.UserRegistrationForm(data=request.POST)
+        # Validate form and create new user and profile
+        if user_form.is_valid():
+            User.objects.create_user(
+                username=request.POST['email'],
+                first_name=request.POST['first_name'],
+                last_name=request.POST['last_name'],
+                email=request.POST['email'],
+                password=request.POST['password'],
+            )
+            return redirect('/home')
+        else:
+            print(user_form.errors)
+    else:
+        return redirect('/login')
+
