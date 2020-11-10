@@ -14,7 +14,6 @@ class Post(models.Model):
     post_type = models.TextField(choices=PostTypes.choices(), default=PostTypes.TEXT)
     privacy_settings = models.TextField(choices=AccessTypes.choices(), default=AccessTypes.PRIVATE)
 
-
 class Comment(models.Model):
     """
     Model class for a comment from a particular user (1:1) to a particular post (1:1)

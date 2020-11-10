@@ -11,9 +11,8 @@ class IndexView(View):
     def post(self, request, *args, **kwargs):
         return None
 
-
 def home_view(request, *args, **kwargs):
-    return HttpResponse("<h1>welcome to my web !</h1>")
+    return render(request, 'base.html', context=None)
 
 
 def detail_view(request, *args, **kwargs):
@@ -26,3 +25,12 @@ def detail_view(request, *args, **kwargs):
 
 def comment(request, *args, **kwargs):
     return HttpResponse("<h1> my post!</h1>")
+
+
+def getFeed(request):
+    user = User.objects.get(pk=cookies['user_id'])
+    posts = (post.author == user.id)
+
+    context = {'user': user, 'post_list': posts}
+
+    return http(context)
