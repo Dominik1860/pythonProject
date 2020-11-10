@@ -1,5 +1,6 @@
 from django.db import models
 from datetime import datetime
+from django.conf import settings
 from .enums import *
 
 
@@ -13,9 +14,13 @@ class User(models.Model):
     email = models.EmailField()
     name = models.CharField(max_length=15)
     surname = models.CharField(max_length=15)
+    image = models.ImageField(default='default.png', upload_to='profile_pics')
     birthdate = models.DateField()
     telephone = models.CharField(max_length=12)
     privacy_settings = models.TextField(choices=AccessTypes.choices(), default=AccessTypes.PUBLIC)
+
+    def __str__(self):
+        return str(self.user.username)
 
     def getAge(self):
         """
@@ -25,6 +30,19 @@ class User(models.Model):
         age = today.year - self.birthdate.year
 
         return age if (today < datetime.date(today.year, self.birthdate.month, self.birthdate.day)) else age - 1
+
+
+class FriendRequest(models.Model):
+    """
+    Model class for a friend request from a particular user (1:1) to another particular user (1:1)
+    """
+
+    to_user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='to_user', on_delete=models.CASCADE)
+    from_user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='from_user', on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return "From {}, to {}".format(self.from_user.username, self.to_user.username)
 
 
 class Reaction(models.Model):
