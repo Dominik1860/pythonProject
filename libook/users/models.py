@@ -1,7 +1,9 @@
 from django.db import models
 from datetime import datetime
+from django.utils import timezone
 from .enums import *
-
+from autoslug import AutoSlugField
+# pip install django-autoslug
 
 class User(models.Model):
     """
@@ -15,7 +17,16 @@ class User(models.Model):
     surname = models.CharField(max_length=15)
     birthdate = models.DateField()
     telephone = models.CharField(max_length=12)
+    image = models.ImageField(default='default.png', upload_to='profile_pics')
+    # need to provide a default image
+    bio = models.CharField(max_length=255, blank=True)
     privacy_settings = models.TextField(choices=AccessTypes.choices(), default=AccessTypes.PUBLIC)
+
+    def __str__(self):
+        return str(self.user.username)
+
+    def get_absolute_url(self):
+        return "/users/{}".format(self.slug)
 
     def getAge(self):
         """
@@ -25,6 +36,18 @@ class User(models.Model):
         age = today.year - self.birthdate.year
 
         return age if (today < datetime.date(today.year, self.birthdate.month, self.birthdate.day)) else age - 1
+
+class FriendRequest(models.Model):
+    """
+    Model class for a friend request from a particular user (1:1) to another particular user (1:1)
+    """
+
+	to_user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='to_user', on_delete=models.CASCADE)
+	from_user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='from_user', on_delete=models.CASCADE)
+	timestamp = models.DateTimeField(auto_now_add=True)
+
+	def __str__(self):
+		return "From {}, to {}".format(self.from_user.username, self.to_user.username)
 
 
 class Reaction(models.Model):
