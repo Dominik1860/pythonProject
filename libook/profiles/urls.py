@@ -1,6 +1,6 @@
-from django.contrib import admin
-from django.urls import include, path
+from django.urls import path
+from . import views
 
 urlpatterns = [
-
+    path('edit/', views.EditProfileView.as_view(), name='edit_profile')
 ]

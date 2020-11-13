@@ -10,7 +10,7 @@ class Profile(models.Model):
     """
     Model class for an profile
     """
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     birthdate = models.DateField(null=True, blank=True)
     telephone = models.CharField(null=True, blank=True, max_length=12)
     privacy_settings = models.TextField(choices=AccessTypes.choices(), default=AccessTypes.PUBLIC)
