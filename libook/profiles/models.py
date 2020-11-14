@@ -8,17 +8,17 @@ from django.dispatch import receiver
 
 class Profile(models.Model):
     """
-    Model class for an profile
+    Profile model class
     """
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     birthdate = models.DateField(null=True, blank=True)
     telephone = models.CharField(null=True, blank=True, max_length=12)
-    privacy_settings = models.TextField(choices=AccessTypes.choices(), default=AccessTypes.PUBLIC)
+    privacy_settings = models.IntegerField(choices=AccessTypes.choices(), default=AccessTypes.PUBLIC)
 
     @receiver(post_save, sender=User)
     def create_user_profile(sender, instance, created, **kwargs):
         """
-        Trigger for creating Profile with django's User
+        Trigger that creates Profile when djangos User is created
         """
         if created:
             Profile.objects.create(user=instance)
@@ -43,6 +43,6 @@ class Reaction(models.Model):
     """
     Model class for a reaction from a particular user (1:1) to a particular post (1:1)
     """
-    user_id = models.ForeignKey('profiles.profile', on_delete=models.CASCADE)
+    user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     post_id = models.ForeignKey('posts.post', on_delete=models.CASCADE)
     # reaction_type = models.TextField(choices=ReactionTypes.choices(), default=ReactionTypes.LIKE)

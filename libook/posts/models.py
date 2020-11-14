@@ -1,4 +1,6 @@
 from django.db import models
+from django.conf import settings
+
 from .enums import *
 
 
@@ -18,6 +20,8 @@ class Comment(models.Model):
     """
     Model class for a comment from a particular user (1:1) to a particular post (1:1)
     """
-    user_id = models.ForeignKey('profiles.profile', on_delete=models.CASCADE)
+    user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    # https://stackoverflow.com/questions/34305805/django-foreignkeyuser-in-models
+
     post_id = models.ForeignKey('posts.post', on_delete=models.CASCADE)
     content = models.TextField(null=False, blank=False, max_length=255)

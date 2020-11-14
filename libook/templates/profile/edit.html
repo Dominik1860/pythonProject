@@ -3,9 +3,9 @@
 {% block body %}
 
 <h1>Edit form for profile</h1>
-<form action="../edit/" method="post">
+<form action="update-profile" method="post">
     {% csrf_token %}
-    {{ form }}
+    {{ form.as_p }}
     <button class="btn btn-primary" type="submit">Save changes</button>
 </form>
 {% endblock %}

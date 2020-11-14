@@ -2,12 +2,14 @@ from django.shortcuts import render, redirect
 from django.views.generic import View
 from django.contrib.auth.models import User
 from . import forms
+from posts.forms import CreatePostForm
 
 
 class HomeView(View):
     context = {}
 
     def get(self, request):
+        self.context.update(form=CreatePostForm())
         return render(request, 'home/index.html', self.context)
 
 
