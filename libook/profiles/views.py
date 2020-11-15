@@ -34,3 +34,12 @@ class EditProfileView(FormView):
     #     form.instance.save()
     #     return super().form_valid(form)
 
+def detail(request, **kwargs):
+    profile_id = kwargs['id']
+    # post = Profile.objects.get(pk=profile_id)
+
+    context = {
+        'id' : profile_id,
+    }
+
+    return render(request, 'profile/detail.html', context)

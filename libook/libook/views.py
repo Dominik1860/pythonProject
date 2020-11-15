@@ -23,6 +23,7 @@ def register(request):
         if user_form.is_valid():
             User.objects.create_user(
                 username=request.POST['email'],
+                # email correct?
                 first_name=request.POST['first_name'],
                 last_name=request.POST['last_name'],
                 email=request.POST['email'],
