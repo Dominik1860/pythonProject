@@ -43,3 +43,35 @@ def detail(request, **kwargs):
     }
 
     return render(request, 'profile/detail.html', context)
+
+
+def profile_list(request, **kwargs):
+    each_post = profile_get_next_or_previous_by_FIELD(id = id)
+    context ={
+        'profile_list': each_post,
+        }
+    return render(request, 'profile/profile_list.html', context)
+
+
+def Add_post(request, id):
+    each_post = post.objects.get(id = id)
+    each_post.Add()
+    return render(request, 'each_post/Add.html', context)
+
+def delete_post(request, id):
+    each_post = post.objects.get(id = id)
+    each_post.delete()
+    return HttpResponseRedirect('/post')
+
+def post(request,**kwargs):
+    tagger_user = kwargs['id']
+    # post = tagger.objects.get(pk=profile_id)
+
+    context = {
+        'id' : profile_id,
+    }
+
+    return render(request, 'tagger/post.html', context)
+
+
+
