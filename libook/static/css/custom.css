@@ -1,0 +1,10 @@
+/*Hides all error messages of forms on lead*/
+ul.errorlist {
+        display: none;
+    }
+
+/*Hides user selection field from CreatePostForm*/
+.user-hidden-field, label[for=id_user] {
+    display: none !important;
+}
+

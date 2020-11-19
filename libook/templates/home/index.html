@@ -3,17 +3,37 @@
 {% block body %}
 
 <div class="row">
-    <div class="col-3">navbar</div>
-    <div class="col-6">
+    <div class="col-8">
+        <!--            Form for posting a new comment-->
         <div class="row">
             <form action="" method="post">
                 {% csrf_token %}
                 {{ form }}
-                <button type="submit" class="btn btn-primary">Post</button>
+                <button class="btn btn-primary" type="submit">Post</button>
             </form>
         </div>
+
+        {% for post in feed %}
+        <div class="row py-2 my-5">
+            {% if post.image %}
+            <div class="col">
+                <img class="img-fluid" style="max-height: 250px" src="/{{ post.image }}">
+            </div>
+            {% endif %}
+            <div class="col">
+                <h3>{{ post.name }}</h3>
+                <p>{{ post.description }}</p>
+            </div>
+        </div>
+        {% endfor %}
+
+
     </div>
-    <div class="col-3">other shit</div>
+    <div class="col-4">
+        <div class="col">Upcoming events</div>
+        <div class="col">Friends</div>
+        <div class="col">Friend requests</div>
+    </div>
 </div>
 
 {% endblock %}

@@ -83,7 +83,7 @@ WSGI_APPLICATION = 'libook.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3test',
     }
 }
 
@@ -130,4 +130,13 @@ LOGIN_REDIRECT_URL = '/home'
 LOGOUT_REDIRECT_URL = '/'
 
 LOGIN_URL = 'login'
+
+# Editing systems datetime formatting
+DATE_FORMAT = [
+    '%d.%m.%Y',
+]
+
+DATE_INPUT_FORMATS = [
+    '%d.%m.%Y',
+]
 

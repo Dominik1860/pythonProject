@@ -1,10 +1,8 @@
 from django import forms
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from profiles.models import Profile
 
-
-# from .models import Profile
 
 class UserRegisterForm(UserCreationForm):
     """
@@ -22,16 +20,18 @@ class UpdateProfileForm(forms.ModelForm):
     Updates a logged in user on /profile/edit
     """
 
+    def __init__(self, *args, **kwargs):
+        super(UpdateProfileForm, self).__init__(*args, **kwargs)
+        for field in iter(self.fields):
+            self.fields[field].widget.attrs.update({
+                'class': 'form-control'
+            })
+
     user = forms.IntegerField(
-        disabled=True
-    )
-    birthdate = forms.DateField(
-        # widget=forms.DateInput(format='%d.%m.%Y'),
-        # input_formats=['%d.%m.%Y'],
+        widget=forms.HiddenInput()
     )
 
     class Meta:
         model = Profile
         fields = '__all__'
-
 

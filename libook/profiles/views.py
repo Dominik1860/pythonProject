@@ -1,21 +1,18 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
 from django.views.generic.edit import FormView
 from django.contrib.auth.models import User
+from PIL import Image
+from pathlib import Path
 from . import forms
 from .models import Profile
+import os
 
-def update_profile(request):
-    if request.method == 'POST':
-        profile = Profile.objects.get(user=User.objects.get(pk=request.user.id))
-        profile.birthdate = request.POST.get('birthdate')
-        profile.telephone = request.POST.get('telephone')
-        profile.privacy_settings = request.POST.get('privacy_settings')
-        profile.save()
-
-    return redirect(to='/profiles/edit')
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 class EditProfileView(FormView):
+    """
+    Render a form for editing Profile
+    """
     template_name = 'profile/edit.html'
     form_class = forms.UpdateProfileForm
     success_url = '/home'
@@ -23,55 +20,43 @@ class EditProfileView(FormView):
 
     def get(self, request):
         """
-        Finds Profile using User one-to-one relation, that is found by user.id stored in request
+        Handles GET request and returns form for editing
         """
         profile = Profile.objects.get(user=User.objects.get(pk=request.user.id))
-        self.context.update(form = forms.UpdateProfileForm(instance=profile))
+        self.context.update(form=forms.UpdateProfileForm(instance=profile))
+        self.context.update(mugshot=profile.mugshot)
+        self.context.update(user=request.user)
         return render(request, 'profile/edit.html', self.context)
 
-    # def form_valid(self, form):
-    #     form.user = self.request.user
-    #     form.instance.save()
-    #     return super().form_valid(form)
+    def post(self, request):
+        """
+        Handles new changes in POST request
+        """
+        profile = Profile.objects.get(pk=request.user.id)
+        form = forms.UpdateProfileForm(instance=profile, data=request.POST, files=request.FILES)
+        if form.is_valid():
+            # image = Image.open(form.cleaned_data['mugshot'])
+            # image_path = os.path.join((BASE_DIR), 'static/imgs/profile/') + request.user.username + '_mugshot.jpg'
+            # image.save(image_path)
+            form.save()
 
-def detail(request, **kwargs):
-    profile_id = kwargs['id']
-    # post = Profile.objects.get(pk=profile_id)
-
-    context = {
-        'id' : profile_id,
-    }
-
-    return render(request, 'profile/detail.html', context)
-
-
-def profile_list(request, **kwargs):
-    each_post = profile_get_next_or_previous_by_FIELD(id = id)
-    context ={
-        'profile_list': each_post,
-        }
-    return render(request, 'profile/profile_list.html', context)
+        return redirect(to='/profiles/edit')
 
 
-def Add_post(request, id):
-    each_post = post.objects.get(id = id)
-    each_post.Add()
-    return render(request, 'each_post/Add.html', context)
+def detail(request):
+    pass
 
-def delete_post(request, id):
-    each_post = post.objects.get(id = id)
-    each_post.delete()
-    return HttpResponseRedirect('/post')
-
-def post(request,**kwargs):
-    tagger_user = kwargs['id']
-    # post = tagger.objects.get(pk=profile_id)
-
-    context = {
-        'id' : profile_id,
-    }
-
-    return render(request, 'tagger/post.html', context)
-
-
-
+# class TestView(View):
+#     def get(self, request):
+#         return render(request, 'profile/test.html', None)
+#
+#     def post(self, request):
+#         if request.method == 'POST':
+#             form = forms.TestForm(request.POST, request.FILES)
+#             print(request.POST)
+#             print(request.FILES)
+#             print('form is post')
+#             if form.is_valid():
+#                 print('form is valid')
+#
+#         return redirect('/profiles/test/')

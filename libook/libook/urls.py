@@ -9,7 +9,7 @@ urlpatterns = [
 
     path('', RedirectView.as_view(url='/login')), # Default redirect to /login
     path('', include('django.contrib.auth.urls')), # All login requests
-    path('home/', login_required(views.HomeView.as_view())), # Dashboard for logged in user
+    path('home/', login_required(views.HomeView.as_view()), name='home'), # Dashboard for logged in user
     path('register/', views.register, name='register'), # Register a new user
 
 

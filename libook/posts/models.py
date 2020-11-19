@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from profiles.models import Profile
 
 from .enums import *
 
@@ -8,13 +9,13 @@ class Post(models.Model):
     """
     Model class for a post from a particular user (1:1)
     """
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default=None, null=True)
     name = models.CharField(max_length=255)
     description = models.TextField(null=False, blank=False, max_length=255)
-    # content_url = models.ImageField()
-    number_of_likes = models.PositiveIntegerField(default=0)
-    tagged_user_id = models.ForeignKey('profiles.profile', on_delete=models.CASCADE, default=None, null=True)
-    post_type = models.TextField(choices=PostTypes.choices(), default=PostTypes.TEXT)
-    privacy_settings = models.TextField(choices=AccessTypes.choices(), default=AccessTypes.PRIVATE)
+    image = models.ImageField(upload_to='static/imgs/posts/', null=True, blank=True)
+
+    def __str__(self):
+        return self.name + " (from " + self.user.username + ")"
 
 class Comment(models.Model):
     """

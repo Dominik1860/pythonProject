@@ -12,25 +12,6 @@ class AccessTypes(IntEnum):
     def choices(cls):
         return [(key.value, key.name) for key in cls]
 
-
-class PostTypes(Enum):
-    """
-    Enumeration for defining the content type of a post
-    """
-    TEXT = 0, ('Text')
-    IMAGE = 1, ('Image')
-    VIDEO = 2, ('Video')
-
-    @classmethod
-    def choices(cls):
-        # return [(key.value, key.name) for key in cls]
-        return [
-            (0, 'Text'),
-            (1, 'Image'),
-            (2, 'Video')
-        ]
-
-
 class ReactionTypes(Enum):
     """
     Enumeration for defining the reaction to a post

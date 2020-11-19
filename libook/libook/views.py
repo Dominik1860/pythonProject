@@ -1,16 +1,26 @@
 from django.shortcuts import render, redirect
-from django.views.generic import View
+from django.views.generic import View, TemplateView, ListView
 from django.contrib.auth.models import User
+from django.http import HttpResponse
 from . import forms
 from posts.forms import CreatePostForm
+from posts.models import Post
 
 
-class HomeView(View):
-    context = {}
+class HomeView(TemplateView):
+    """
+    Shows feed of logged in user. Basically a dashboard.
+    """
+    template_name = 'home/index.html'
 
-    def get(self, request):
-        self.context.update(form=CreatePostForm())
-        return render(request, 'home/index.html', self.context)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = CreatePostForm({'user': self.request.user.id})
+        context['feed'] = Post.objects.filter(user__id=self.request.user.id)
+        return context
+
+    def post(self, request):
+        return HttpResponse('POST')
 
 
 def register(request):
@@ -34,4 +44,3 @@ def register(request):
             print(user_form.errors)
     else:
         return redirect('/login')
-
