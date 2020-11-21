@@ -1,13 +1,16 @@
 from django.shortcuts import render, redirect
 from django.views.generic.edit import FormView
+from django.views.generic import TemplateView
 from django.contrib.auth.models import User
 from PIL import Image
 from pathlib import Path
 from . import forms
 from .models import Profile
+from posts.models import Post
 import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+
 
 class EditProfileView(FormView):
     """
@@ -40,11 +43,23 @@ class EditProfileView(FormView):
             # image.save(image_path)
             form.save()
 
-        return redirect(to='/profiles/edit')
+        return redirect(to='/profile/edit')
 
 
-def detail(request):
-    pass
+class DetailView(TemplateView):
+    """
+    Detail page of a profile
+    """
+    template_name = 'profile/detail.html'
+
+    def get_context_data(self, **kwargs):
+        profile = Profile.objects.select_related('user').get(pk=kwargs['pk'])
+        context = super().get_context_data(**kwargs)
+        context['profile'] = profile
+        context['posts'] = Post.objects.filter(user__id=profile.user.id)
+        context['friends'] = profile.friends.all()
+
+        return context
 
 # class TestView(View):
 #     def get(self, request):
@@ -59,4 +74,4 @@ def detail(request):
 #             if form.is_valid():
 #                 print('form is valid')
 #
-#         return redirect('/profiles/test/')
+#         return redirect('/profile/test/')

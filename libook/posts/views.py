@@ -1,31 +1,21 @@
 from django.shortcuts import render, reverse
 from django.http import HttpResponse, HttpResponseRedirect
-from django.views.generic import View, DetailView
-from django.views.generic.edit import CreateView
-from django.contrib.auth.models import User
+from django.views.generic import TemplateView
 from .models import Post
 from . import forms
 
 
-# class PostDetail(DetailView):
-#     model = Post
-#
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context['post'] = Post.objects.get()
-
-def detail(request, **kwargs):
+class DetailView(TemplateView):
     """
-    Displays detail of a post
+    Detail page of a post
     """
-    post_id = kwargs['id']
-    # post = Post.objects.get(pk=post_id)
+    template_name = 'post/detail.html'
 
-    context = {
-        'id': post_id,
-    }
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['post'] = Post.objects.get(pk=kwargs['pk'])
 
-    return render(request, 'post/detail.html', context)
+        return context
 
 
 def create_post(request):

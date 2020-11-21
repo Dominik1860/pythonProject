@@ -15,15 +15,21 @@
 
         {% for post in feed %}
         <div class="row py-2 my-5">
-            {% if post.image %}
-            <div class="col">
-                <img class="img-fluid" style="max-height: 250px" src="/{{ post.image }}">
-            </div>
-            {% endif %}
-            <div class="col">
-                <h3>{{ post.name }}</h3>
-                <p>{{ post.description }}</p>
-            </div>
+            <a href="/posts/detail/{{ post.id }}">
+                <div class="card" style="width: 18rem;">
+                    {% if post.image %}
+                    <img class="card-img-top" src="/{{ post.image }}" alt="Card image cap">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ post.name }}</h5>
+                        <p class="card-text">{{ post.description }}</p>
+                        <p class="card-text"><small>Uploaded by {{ post.user.username }}</small></p>
+                    </div>
+                    <div class="card-body">
+                        <a href="#" class="card-link">Like</a>
+                    </div>
+                </div>
+            </a>
         </div>
         {% endfor %}
 

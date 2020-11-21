@@ -13,11 +13,13 @@ class Profile(models.Model):
     """
     Profile model class
     """
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, related_name='User')
     bio = models.TextField(max_length=255, null=True, blank=True)
     mugshot = models.ImageField(upload_to='static/imgs/profile/', default='static/imgs/dummy_avatar.jpg')
     birthdate = models.DateField(null=True, blank=True)
     telephone = models.CharField(null=True, blank=True, max_length=12)
+    friends = models.ManyToManyField('self', symmetrical=True)
+    # https://docs.djangoproject.com/en/3.0/ref/models/fields/#django.db.models.ManyToManyField
 
     @receiver(post_save, sender=User)
     def create_user_profile(sender, instance, created, **kwargs):

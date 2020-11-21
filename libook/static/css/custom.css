@@ -8,3 +8,15 @@ ul.errorlist {
     display: none !important;
 }
 
+
+/*FOOTER*/
+.footer {
+    color: white !important;
+    background-color: #4267B2 !important;;
+}
+
+.copyright {
+    background-color: #4267B2 !important;
+}
+
+
