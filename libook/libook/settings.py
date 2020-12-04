@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'profiles',
     'posts',
     'libook',
+    'group',
 
 ]
 
