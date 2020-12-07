@@ -14,7 +14,7 @@ class Party(models.Model):
     partyname = models.CharField(max_length=255)
     members = models.ManyToManyField(settings.AUTH_USER_MODEL, default=None, null=True, blank=True)
     feed = models.ManyToManyField('posts.post', on_delete=models.CASCADE, default=None, null=True, blank=True)
-    #feed = models.ManyToManyField('self', symmetrical=True)
+    # feed = models.ManyToManyField('self', symmetrical=True)
     bio = models.TextField(max_length=255, null=True, blank=True)
     genre = models.TextField(max_length=255, null=True, blank=True)
     image = models.ImageField(upload_to='static/imgs/profile/', default='static/imgs/dummy_avatar.jpg')

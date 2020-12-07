@@ -26,6 +26,7 @@ class EventDetailView(TemplateView):
 
         return context
 
+
 def create_new(request):
     """
     Form to create a new event

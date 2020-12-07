@@ -1,6 +1,7 @@
 from django import forms
 from .models import Event
 
+
 class CreateEventForm(forms.ModelForm):
     """
     Form for creating a new event entity
@@ -18,8 +19,6 @@ class CreateEventForm(forms.ModelForm):
 
         self.fields['user'].widget.attrs['class'] = 'form-control user-hidden-field'
 
-
     class Meta:
         model = Event
         fields = '__all__'
-

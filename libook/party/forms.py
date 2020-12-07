@@ -1,6 +1,7 @@
 from django import forms
 from .models import Party
 
+
 class CreatePartyForm(forms.ModelForm):
     """
     Form for creating a new party entity
@@ -18,9 +19,6 @@ class CreatePartyForm(forms.ModelForm):
 
         self.fields['user'].widget.attrs['class'] = 'form-control user-hidden-field'
 
-
     class Meta:
         model = Party
         fields = '__all__'
-
-
