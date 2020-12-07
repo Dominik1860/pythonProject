@@ -18,10 +18,10 @@ class PartyDetailView(TemplateView):
     #    return context
 
     def get_context_data(self, **kwargs):
-        profile = Group.objects.select_related('party').get(pk=kwargs['pk'])
+        party = Party.objects.select_related('party').get(pk=kwargs['pk'])
         context = super().get_context_data(**kwargs)
         context['party'] = party
-        context['posts'] = Post.objects.filter(party__id=.party.id)
+        context['posts'] = Post.objects.filter(party__id=party.id)
         context['members'] = party.members.all()
 
         return context
