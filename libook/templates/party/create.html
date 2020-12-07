@@ -5,7 +5,7 @@
 <form action="{% url 'create_new' %}" enctype="multipart/form-data" method="post">
     {% csrf_token %}
     {% for field in form %}
-    <div class="form-group">
+    <div class="form-party">
         {{ field.label }}
         {{ field }}
         <small>{{ field.help_text }}</small>

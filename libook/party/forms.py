@@ -1,16 +1,16 @@
 from django import forms
-from .models import Group
+from .models import Party
 
-class CreateGroupForm(forms.ModelForm):
+class CreatePartyForm(forms.ModelForm):
     """
-    Form for creating a new group entity
+    Form for creating a new party entity
     """
 
     def __init__(self, *args, **kwargs):
         """
         https://stackoverflow.com/questions/31627253/django-modelform-with-bootstrap
         """
-        super(CreateGroupForm, self).__init__(*args, **kwargs)
+        super(CreatePartyForm, self).__init__(*args, **kwargs)
         for field in iter(self.fields):
             self.fields[field].widget.attrs.update({
                 'class': 'form-control'
@@ -20,7 +20,7 @@ class CreateGroupForm(forms.ModelForm):
 
 
     class Meta:
-        model = Group
+        model = Party
         fields = '__all__'
 
 
