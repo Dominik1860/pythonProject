@@ -1,4 +1,4 @@
-LiBook
+# LiBook
 
 A social media website to connect to fellow students built on Django Framework
 
