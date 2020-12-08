@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'posts',
     'libook',
     'party',
-    'event'
+    'events',
 
 ]
 

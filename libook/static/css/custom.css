@@ -1,22 +1,124 @@
+/*h1 22px strong #cd2b00 Oswald*/
+/*h6 16px strong #cd2b00 Oswald*/
+/*p Open Sans 14px #333 OpenSans*/
+
 /*Hides all error messages of forms on lead*/
 ul.errorlist {
-        display: none;
-    }
+    display: none;
+}
 
 /*Hides user selection field from CreatePostForm*/
 .user-hidden-field, label[for=id_user] {
     display: none !important;
 }
 
+/*GENERAL Boostrap overrides*/
+body, p, ol, ul, input, a {
+    font-family: "Open Sans";
+    font-size: 14px;
+    color: #333;
+}
+
+a {
+    color: #cd2b00 !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Oswald";
+    color: #cd2b00;
+    font-weight: bold !important;
+}
+
+h1 {
+    font-size: 22px;
+}
+
+h2 {
+    font-size: 16px;
+}
+
+/*buttons override*/
+.btn {
+    font-size: 12px !important;
+    font-weight: bold !important;
+    border-radius: 0px !important;
+    text-transform: uppercase;
+}
+
+.btn-primary {
+    background-color: #cd2b00 !important;
+    border-color: #cd2b00 !important;
+}
+
+.btn-secondery {
+    background-color: #333 !important;
+}
+
+
+/*NAVBAR*/
+.navbar_logo {
+    max-width: 170px !important;
+}
+
 
 /*FOOTER*/
 .footer {
-    color: white !important;
-    background-color: #4267B2 !important;;
+    color: #333 !important;
+    background-color: #f8f9fa !important;
 }
 
 .copyright {
-    background-color: #4267B2 !important;
+}
+
+/* 1 /login */
+.login_background {
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.2)), url(/static/imgs/login_background.jpg);
+    background-position-y: bottom;
+    background-size: cover;
+    padding-bottom: 25%;
+}
+
+td > input {
+    display: block;
+    width: 100%;
+    height: calc(1.5em + .75rem + 2px);
+    padding: .375rem .75rem;
+    margin: 3px 0;
+    line-height: 1.5;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out
+}
+
+/* 2 /homepage */
+/*vertical card*/
+.meta {
+    clear: both;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.vertical-card{
+    display: block;
+    width: 100% !important;
+}
+
+.vertical-card-image{
+    display: inline-block;
+    float: left;
+    width: 50% !important;
+}
+
+.vertical-card-image > img {
+    max-height: 250px;
+}
+
+.vertical-card-body{
+    display: inline-block;
+    float: left;
+    width: 50% !important;
 }
 
 

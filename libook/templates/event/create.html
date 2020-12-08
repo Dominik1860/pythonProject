@@ -2,7 +2,7 @@
 
 {% block body %}
 
-<form action="{% url 'create_new' %}" enctype="multipart/form-data" method="post">
+<form action="{% url 'create_event' %}" enctype="multipart/form-data" method="post">
     {% csrf_token %}
     {% for field in form %}
     <div class="form-party">

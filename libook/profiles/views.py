@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
+from django.db.models import Count
 from django.views.generic.edit import FormView
 from django.views.generic import TemplateView
 from django.contrib.auth.models import User
-from PIL import Image
 from pathlib import Path
 from . import forms
 from .models import Profile
@@ -57,7 +57,9 @@ class DetailView(TemplateView):
         context = super().get_context_data(**kwargs)
         context['profile'] = profile
         context['posts'] = Post.objects.filter(user__id=profile.user.id)
+        context['number_of_posts'] = context['posts'].count()
         context['friends'] = profile.friends.all()
+        context['number_of_friends'] = context['friends'].count()
 
         return context
 

@@ -9,10 +9,18 @@ class UserRegistrationForm(forms.ModelForm):
     """
     Form to register a new user.
     """
+    def __init__(self, *args, **kwargs):
+        super(UserRegistrationForm, self).__init__(*args, **kwargs)
+        for field in iter(self.fields):
+            self.fields[field].widget.attrs.update({
+                'class': 'form-control'
+            })
 
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'email', 'password']
+
+
 
     # first_name = forms.CharField()
     # last_name = forms.CharField()

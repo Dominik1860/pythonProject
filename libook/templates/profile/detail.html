@@ -3,62 +3,89 @@
 {% block body %}
 
 <!--HEADER-->
-<div class="row">
-    <div class="col-3">
-        <img src="/{{ profile.mugshot }}" alt="Profile picture" class="img-fluid">
-    </div>
-    <div class="col-6 my-auto">
-        <h3>
-            {{ profile.user.first_name }} {{ profile.user.last_name }}
-        </h3>
-        <p>
-            Phone: {{ profile.telephone }} <br/>
-            E-mail: {{ profile.user.email }}
-        </p>
-    </div>
-    <div class="col-3">
-        <a href="#">
-            <button class="btn btn-primary">Add to friends</button>
-        </a>
-    </div>
-</div>
-<!--END:HEADER-->
-<hr>
-<!--LIST OF FRIENDS-->
-<div class="row">
-    <div class="col">
-        <h4>All friends</h4>
-        <ul class="list-group">
-            {% for friend in friends %}
-            <a href="/profile/detail/{{ friend.user.id }}">
-                <li class="list-group-item">
-                    {{ friend.user.first_name }} {{ friend.user.last_name}}
-                </li>
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <img alt="Profile picture" class="img-fluid" src="/{{ profile.mugshot }}">
+        </div>
+        <div class="col-md-6 my-auto">
+            <h1>
+                {{ profile.user.first_name }} {{ profile.user.last_name }}
+            </h1>
+            <p>
+                Phone: {{ profile.telephone }} <br/>
+                E-mail: {{ profile.user.email }}
+            </p>
+            <a href="#">
+                <button class="btn btn-primary">Add to friends</button>
             </a>
-            {% endfor %}
-        </ul>
-    </div>
-</div>
-<!--END:LIST OF FRIENDS-->
-<!--FEED-->
-{% for post in posts %}
-<div class="row py-5">
-    <div class="card" style="width: 18rem;">
-        {% if post.image %}
-        <img class="card-img-top" src="/{{ post.image }}" alt="Card image cap">
-        {% endif %}
-        <div class="card-body">
-            <h5 class="card-title">{{ post.name }}</h5>
-            <p class="card-text">{{ post.description }}</p>
-            <p class="card-text"><small>Uploaded by {{ post.user.username }}</small></p>
         </div>
-        <div class="card-body">
-            <a href="#" class="card-link">Like</a>
+        <div class="col-md-3">
+            <!--            empty-->
         </div>
     </div>
-</div>
-{% endfor %}
-<!--END: FEED-->
+    <!--END:HEADER-->
+    <hr>
+    <!--LIST OF FRIENDS-->
+    <div class="row">
+        <div class="col-12">
+            {% if number_of_friends %}
+            <h6>Friends list</h6>
+            {% else %}
+            <h6>This user has no friends.</h6>
+            {% endif %}
+        </div>
+        {% for friend in friends %}
+        <!--            <a href="/profile/detail/{{ friend.user.id }}">-->
+        <div class="col-md-3 col-6" style="display: inline-block; float:left; text-align: left">
+            <a href="{% url 'detail_profile' pk=friend.user.id %}">
+                    <span>
+                        {{ friend.user.first_name }} {{ friend.user.last_name}}
+                    </span>
+            </a>
+        </div>
 
+        {% endfor %}
+
+    </div>
+    <hr>
+    <!--END:LIST OF FRIENDS-->
+    <!--FEED-->
+    <div class="row">
+        <div class="col-12">
+            {% if number_of_posts %}
+            <h6>All posts</h6>
+            {% else %}
+            <h6>This user has no posts.</h6>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row">
+        {% for post in posts %}
+        <div class="col-12 py-5">
+            <div class="vertical-card">
+                <a href="{% url 'detail_post' pk=post.id %}">
+                    <div class="vertical-card-image">
+                        {% if post.image %}
+                        <img class="img-fluid" src="/{{ post.image }}">
+                        {% endif %}
+                    </div>
+                    <div class="vertical-card-body">
+                        <h5>{{ post.name }}</h5>
+                </a>
+                <p>{{ post.description }}</p>
+                <p>
+                    <small><b>Uploaded on {{ post.timestamp }}</b></small><br><br>
+                    <a href="">Comment</a>
+                    <a href="#">Like</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+</div>
+<!--END: FEED-->
+</div>
 
 {% endblock %}

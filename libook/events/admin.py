@@ -1,3 +1,5 @@
 from django.contrib import admin
+from .models import Event, EventInvitationRequest
 
-# Register your models here.
+admin.site.register(Event)
+admin.site.register(EventInvitationRequest)

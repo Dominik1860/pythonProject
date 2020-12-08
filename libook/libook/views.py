@@ -17,6 +17,7 @@ class HomeView(TemplateView):
         context = super().get_context_data(**kwargs)
         context['form'] = CreatePostForm({'user': self.request.user.id})
         context['feed'] = Post.objects.filter(user__id=self.request.user.id)
+        context['logged_user_id'] = self.request.user.id
         return context
 
     def post(self, request):

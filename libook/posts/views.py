@@ -1,7 +1,8 @@
 from django.shortcuts import render, reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import TemplateView
-from .models import Post
+from .models import Post, Comment, Like
+from django.contrib.auth.models import User
 from . import forms
 
 
@@ -14,9 +15,8 @@ class DetailView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['post'] = Post.objects.get(pk=kwargs['pk'])
-
+        context['comments'] = context['post'].comment_set.all()
         return context
-
 
 def create_post(request):
     """
@@ -39,6 +39,40 @@ def create_post(request):
             return HttpResponseRedirect(reverse('home'))
 
         return HttpResponse("POST")
+
+# HANDLING COMMENTS AND LIKES
+
+def create_comment(request):
+    user = User.objects.get(pk=request.GET.get('user_id'))
+    post = Post.objects.get(pk=request.GET.get('post_id'))
+    content = request.GET.get('content')
+
+    comment = Comment(user_id=user, post_id=post, content=content)
+    comment.save()
+
+    return None
+
+def create_like(request):
+    user = User.objects.get(pk=request.GET.get('user_id'))
+    post = Post.objects.get(pk=request.GET.get('post_id'))
+
+    like = Comment(user_id=user, post_id=post)
+    like.save()
+
+    return None
+
+def remove_comment(request):
+    like = Like.objects.get(pk=request.GET.get('id'))
+    like.delete()
+
+    return None
+
+
+def remove_like(request):
+    like = Like.objects.get(pk=request.GET.get('id'))
+    like.delete()
+
+    return None
 
 # def upload_post(request):
 #     """

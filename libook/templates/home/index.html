@@ -2,44 +2,73 @@
 
 {% block body %}
 
-<div class="row">
-    <div class="col-8">
-        <!--            Form for posting a new comment-->
-        <div class="row">
-            <form action="" method="post">
-                {% csrf_token %}
-                {{ form }}
-                <button class="btn btn-primary" type="submit">Post</button>
-            </form>
-        </div>
+<div class="container">
+    <div class="row">
+        <div class="col-8">
+            {% for post in feed %}
+            <div class="row py-2">
+                <a href="{% url 'detail_post' pk=post.id %}">
+                    <div class="vertical-card">
+                        <div class="vertical-card-image">
+                            {% if post.image %}
+                            <img class="img-fluid" src="/{{ post.image }}">
+                            {% endif %}
+                        </div>
+                        <div class="vertical-card-body">
+                            <h5>{{ post.name }}</h5>
+                </a>
+                            <p>{{ post.description }}</p>
+                            <p>
+                                <small>Author: <a class="meta" href="{% url 'detail_profile' pk=post.user.id %}">{{ post.user.username }}</a></small><br>
+                                <small><b>Uploaded: {{ post.timestamp }}</b></small><br><br>
+                                <a href="#" id="comment" data-user-id="{{ logged_user_id }}" data-post-id="{{ post.id }}" onclick="handleCommentClick(this)">Comment</a>
+                                <a href="#" id="like" data-user-id="{{ logged_user_id }}" data-post-id="{{ post.id }}" onclick="handleLikeClick(this)">Like</a>
+                            </p>
 
-        {% for post in feed %}
-        <div class="row py-2 my-5">
-            <a href="/posts/detail/{{ post.id }}">
-                <div class="card" style="width: 18rem;">
-                    {% if post.image %}
-                    <img class="card-img-top" src="/{{ post.image }}" alt="Card image cap">
-                    {% endif %}
-                    <div class="card-body">
-                        <h5 class="card-title">{{ post.name }}</h5>
-                        <p class="card-text">{{ post.description }}</p>
-                        <p class="card-text"><small>Uploaded by {{ post.user.username }}</small></p>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <a href="#" class="card-link">Like</a>
-                    </div>
-                </div>
-            </a>
+            </div>
+            <hr>
+            {% endfor %}
+
+
         </div>
-        {% endfor %}
-
-
-    </div>
-    <div class="col-4">
-        <div class="col">Upcoming events</div>
-        <div class="col">Friends</div>
-        <div class="col">Friend requests</div>
+        <div class="col-4">
+            <!--            Form for posting a new comment-->
+            <h1>Create new post</h1>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    {{ form }}
+                    <button class="btn btn-primary" type="submit">Post</button>
+                </form>
+            <div class="col">Upcoming events</div>
+            <div class="col">Friend list</div>
+            <div class="col">Invitations and requests</div>
+        </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    function handleCommentClick(elem) {
+        var postId = elem.getAttribute("data-post-id");
+        var userId = elem.getAttribute("data-user-id");
+        var content = prompt("Write down your comment:");
+        var endpoint = `http://127.0.0.1:8000/posts/comment/create/?post_id=${postId}&user_id=${userId}&content=${content}`;
+        console.log(endpoint);
+        // location.reload();
+
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open( "GET", endpoint, false ); // false => asynchronous request
+        xmlHttp.send( null );
+        console.log(xmlHttp.responseText);
+
+    }
+
+    function handleLikeClick(elem) {
+         var postId = elem.getAttribute("data-post-id");
+         var userId = elem.getAttribute("data-user-id");
+         var endpoint = `/posts/like/create/?post_id=${postId}&user_id=${userId}&content=${content}`;
+    }
+</script>
 
 {% endblock %}

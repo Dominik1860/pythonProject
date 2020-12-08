@@ -1,9 +1,11 @@
 from django.shortcuts import render, reverse
 from django.http import HttpResponse, HttpResponseRedirect
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView
 from .models import Event
 from . import forms
 
+# class EventListView(Listview):
+#     pass
 
 class EventDetailView(TemplateView):
     """
