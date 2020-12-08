@@ -16,7 +16,9 @@ class DetailView(TemplateView):
         context = super().get_context_data(**kwargs)
         context['post'] = Post.objects.get(pk=kwargs['pk'])
         context['comments'] = context['post'].comment_set.all()
+        context['likes'] = context['post'].like_set.all()
         return context
+
 
 def create_post(request):
     """
@@ -40,10 +42,11 @@ def create_post(request):
 
         return HttpResponse("POST")
 
+
 # HANDLING COMMENTS AND LIKES
 
 def create_comment(request):
-    user = User.objects.get(pk=request.GET.get('user_id'))
+    user = request.user
     post = Post.objects.get(pk=request.GET.get('post_id'))
     content = request.GET.get('content')
 
@@ -52,14 +55,16 @@ def create_comment(request):
 
     return None
 
+
 def create_like(request):
-    user = User.objects.get(pk=request.GET.get('user_id'))
+    user = request.user
     post = Post.objects.get(pk=request.GET.get('post_id'))
 
-    like = Comment(user_id=user, post_id=post)
+    like = Like(user_id=user, post_id=post)
     like.save()
 
     return None
+
 
 def remove_comment(request):
     like = Like.objects.get(pk=request.GET.get('id'))

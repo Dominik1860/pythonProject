@@ -1,10 +1,6 @@
 from django.db import models
 from django.conf import settings
-from django.contrib.auth.models import User
 from django.contrib.auth import settings
-from profiles.models import Profile
-from posts.models import Post
-
 
 class Event(models.Model):
     """
@@ -14,8 +10,12 @@ class Event(models.Model):
     members = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="event_members", default=None, blank=True)
     name = models.CharField(max_length=255, null=False, blank=False)
     description = models.TextField(max_length=255, null=True, blank=True)
+    when = models.DateTimeField(null=False, blank=False)
+    where = models.CharField(max_length=255, null=False, blank=False)
     timestamp = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return f'{self.name} ({self.when}, {self.where})'
 
 class EventInvitationRequest(models.Model):
     """

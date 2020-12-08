@@ -13,5 +13,11 @@
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
       <jdbc-url>jdbc:sqlite:C:\Users\Doggo\Documents\GitHub\pythonProject\libook\db.sqlite3</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="db [3]" uuid="f566a42e-e50d-48d2-8994-b8ece0dd1f6e">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:C:\Users\Doggo\Documents\GitHub\pythonProject\libook\db.sqlite3test</jdbc-url>
+    </data-source>
   </component>
 </project>

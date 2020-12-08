@@ -4,16 +4,21 @@
 <div class="container">
     <div class="row">
         <div class="col-12">
-            <img alt="" class="img-fluid mb-5" src="/{{ post.image }}">
+            <img alt="" class="img-fluid detail-image mb-5 mx-auto d-block" src="/{{ post.image }}">
             <h1>{{ post.name }}</h1>
             <p>
                 <small>Posted by <a href="{% url 'detail_profile' pk=post.user.id %}">{{ post.user }}<a/></small>
             </p>
             <p>{{ post.description }}</p>
-        <hr>
-            <h6>Comments</h6>
+            <hr>
+        </div>
+
+<!--        POST COMMENTS-->
+        <div class="col-md-6 col-12">
+            {% if comments %}
+            <h6 id="comments">Comments</h6>
             {% for comment in comments %}
-            <div class="col-md-3 col-6 py-0" style="display: inline-block; float:left; text-align: left">
+            <div class="col-md-6 col-12 px-0" style="display: inline-block; float:left; text-align: left">
                 <p>
                     <b><a href="{% url 'detail_profile' pk=comment.user_id.id %}">{{ comment.user_id.first_name }}
                         {{comment.user_id.last_name }}</a></b><br>
@@ -22,9 +27,42 @@
                 </p>
             </div>
             {% endfor %}
+            {% else %}
+            <p>There are no comments.<br>Be the first one to <a data-post-id="{{ post.id }}"
+                                                             onclick="handleCommentClick(this)">comment this</a>.</p>
+            {% endif %}
+        </div>
+
+<!--        POST LIKES-->
+        <div class="col-md-6 col-12">
+            {% if likes %}
+            <h6 id="likes">Liked by</h6>
+            {% for like in likes %}
+            <div class="col-12 px-0" style="display: inline-block; float:left; text-align: left">
+                    <a href="{% url 'detail_profile' pk=like.user_id.id %}">{{like.user_id.first_name}} {{like.user_id.last_name}}</a><br>
+            </div>
+            {% endfor %}
+            {% else %}
+            <p>There are no likes.<br>Be the first one to <a data-post-id="{{ post.id }}"
+                                                             onclick="handleLikeClick(this)">like this post</a>.</p>
+            {% endif %}
         </div>
 
     </div>
 </div>
 
 {% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

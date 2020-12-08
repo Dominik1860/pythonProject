@@ -13,6 +13,10 @@ ul.errorlist {
 }
 
 /*GENERAL Boostrap overrides*/
+html {
+    height: 100%
+}
+
 body, p, ol, ul, input, a {
     font-family: "Open Sans";
     font-size: 14px;
@@ -35,6 +39,19 @@ h1 {
 
 h2 {
     font-size: 16px;
+}
+
+/*Sticky footer edit*/
+section.body {
+    min-height: 80vh;
+}
+
+header {
+    min-height: 5vh;
+}
+
+footer {
+    min-height: 15vh;
 }
 
 /*buttons override*/
@@ -89,7 +106,7 @@ td > input {
     background-clip: padding-box;
     border: 1px solid #ced4da;
     border-radius: .25rem;
-    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out
 }
 
 /* 2 /homepage */
@@ -100,12 +117,12 @@ td > input {
     font-weight: bold;
 }
 
-.vertical-card{
+.vertical-card {
     display: block;
     width: 100% !important;
 }
 
-.vertical-card-image{
+.vertical-card-image {
     display: inline-block;
     float: left;
     width: 50% !important;
@@ -115,10 +132,33 @@ td > input {
     max-height: 250px;
 }
 
-.vertical-card-body{
+.vertical-card-body {
     display: inline-block;
     float: left;
     width: 50% !important;
 }
 
+@media only screen and (max-width: 576px) {
+    .vertical-card-image {
+        width: 100% !important;
+    }
 
+    .vertical-card-image > img {
+        max-height: 80% !important;
+    }
+
+    .vertical-card-body {
+        width: 100% !important;
+    }
+}
+
+/*3 event*/
+.event-card {
+    width: 100% !important;
+}
+
+/*4 posts */
+/*  detail view*/
+.detail-image{
+    max-height: 65vh;
+}

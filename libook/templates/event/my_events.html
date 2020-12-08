@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h1>My events</h1>
+            <hr>
+        </div>
+        {% for event in object_list %}
+        <div class="col-md-6 col-12">
+            <div class="vertical-card">
+                <div class="vertical-card-body">
+                    <h5 class="text-secondary">{{ event.name }}</h5>
+                    <p>{{ event.description }}</p>
+                    <p>
+                        <a href="{% url 'detail_event' pk=event.id %}">
+                            <button class="btn btn-primary">See details</button>
+                        </a>
+                        <button class="btn btn-primary" data-event-id="{{event.id}}" onclick="handleEventUnsubscribeButtonClick(this)">Unsubscribe</button>
+                        <br>
+                        <small><b>
+                            Organizer: {{ event.admin }}<br>
+                            Date: {{ event.when }}<br>
+                            Place: {{ event.where }}
+                        </b></small>
+                    </p>
+
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <p>There are no events.</p>
+            <a href="{% url 'list_event' %}"><button class="btn btn-primary">See upcoming events</button></a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+</div>
+
+{% endblock %}

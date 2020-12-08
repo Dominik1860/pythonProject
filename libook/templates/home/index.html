@@ -4,71 +4,60 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-8">
+        <div class="col-md-8 col-12">
+            {% if feed %}
+            <h1>News feed</h1>
+            <hr>
             {% for post in feed %}
             <div class="row py-2">
                 <a href="{% url 'detail_post' pk=post.id %}">
-                    <div class="vertical-card">
-                        <div class="vertical-card-image">
-                            {% if post.image %}
-                            <img class="img-fluid" src="/{{ post.image }}">
-                            {% endif %}
-                        </div>
-                        <div class="vertical-card-body">
-                            <h5>{{ post.name }}</h5>
+                    <div class="col-12">
+                        <div class="vertical-card">
+                            <div class="vertical-card-image">
+                                {% if post.image %}
+                                <img class="img-fluid" src="/{{ post.image }}">
+                                {% endif %}
+                            </div>
+                            <div class="vertical-card-body">
+                                <h5>{{ post.name }}</h5>
                 </a>
-                            <p>{{ post.description }}</p>
-                            <p>
-                                <small>Author: <a class="meta" href="{% url 'detail_profile' pk=post.user.id %}">{{ post.user.username }}</a></small><br>
-                                <small><b>Uploaded: {{ post.timestamp }}</b></small><br><br>
-                                <a href="#" id="comment" data-user-id="{{ logged_user_id }}" data-post-id="{{ post.id }}" onclick="handleCommentClick(this)">Comment</a>
-                                <a href="#" id="like" data-user-id="{{ logged_user_id }}" data-post-id="{{ post.id }}" onclick="handleLikeClick(this)">Like</a>
-                            </p>
+                <p>{{ post.description }}</p>
+                <p>
+                    <small>Author: <a class="meta" href="{% url 'detail_profile' pk=post.user.id %}">{{post.user.username}}</a></small><br>
+                    <small><b>Uploaded: {{ post.timestamp }}</b></small><br><br>
+                    <a data-post-id="{{ post.id }}" data-user-id="{{ logged_user_id }}" href="#" id="comment"
+                       onclick="handleCommentClick(this)">Comment</a><br>
+                    <a data-post-id="{{ post.id }}" data-user-id="{{ logged_user_id }}" href="#" id="like"
+                       onclick="handleLikeClick(this)">Like</a>
+                </p>
 
-                        </div>
-                    </div>
             </div>
-            <hr>
-            {% endfor %}
-
-
-        </div>
-        <div class="col-4">
-            <!--            Form for posting a new comment-->
-            <h1>Create new post</h1>
-                <form action="" method="post">
-                    {% csrf_token %}
-                    {{ form }}
-                    <button class="btn btn-primary" type="submit">Post</button>
-                </form>
-            <div class="col">Upcoming events</div>
-            <div class="col">Friend list</div>
-            <div class="col">Invitations and requests</div>
         </div>
     </div>
 </div>
+<hr>
+{% endfor %}
+{% else %}
+<p>There are no posts. Try searching for <a href="">new friends</a>.</p>
+<a href="{% url 'update_profile' %}">
+    <button class="btn btn-primary">Update your profile</button>
+</a>
+<a href="{% url 'list_event' %}">
+    <button class="btn btn-primary">Attend an event</button>
+</a>
+{% endif %}
 
-<script type="text/javascript">
-    function handleCommentClick(elem) {
-        var postId = elem.getAttribute("data-post-id");
-        var userId = elem.getAttribute("data-user-id");
-        var content = prompt("Write down your comment:");
-        var endpoint = `http://127.0.0.1:8000/posts/comment/create/?post_id=${postId}&user_id=${userId}&content=${content}`;
-        console.log(endpoint);
-        // location.reload();
 
-        var xmlHttp = new XMLHttpRequest();
-        xmlHttp.open( "GET", endpoint, false ); // false => asynchronous request
-        xmlHttp.send( null );
-        console.log(xmlHttp.responseText);
-
-    }
-
-    function handleLikeClick(elem) {
-         var postId = elem.getAttribute("data-post-id");
-         var userId = elem.getAttribute("data-user-id");
-         var endpoint = `/posts/like/create/?post_id=${postId}&user_id=${userId}&content=${content}`;
-    }
-</script>
-
+</div>
+<div class="col-md-4 col-12">
+    <!--            Form for posting a new comment-->
+    <h1>Create a new post</h1>
+    <form action="{% url 'create_post' %}" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <button class="btn btn-primary" type="submit">Post</button>
+    </form>
+</div>
+</div>
+</div>
 {% endblock %}

@@ -13,3 +13,51 @@
         </div>
     </div>
 </div>
+
+<!--Handles commenting and likes-->
+<script type="text/javascript">
+    function handleEventSignupButtonClick(elem) {
+        var eventId = elem.getAttribute("data-event-id");
+        var endpoint = `http://127.0.0.1:8000/events/signup/?event_id=${eventId}`;
+        var xmlHttp = new XMLHttpRequest();
+
+        xmlHttp.open("GET", endpoint, false); // false => asynchronous request
+        xmlHttp.send(null);
+        alert("You have successfully signed up.");
+        location.reload();
+    }
+
+    function handleEventUnsubscribeButtonClick(elem) {
+        var eventId = elem.getAttribute("data-event-id");
+        var endpoint = `http://127.0.0.1:8000/events/unsubscribe/?event_id=${eventId}`;
+        var xmlHttp = new XMLHttpRequest();
+
+        xmlHttp.open("GET", endpoint, false); // false => asynchronous request
+        xmlHttp.send(null);
+        alert("You have successfully unsubscribed.");
+        location.reload();
+    }
+
+    function handleCommentClick(elem) {
+        var postId = elem.getAttribute("data-post-id");
+        var userId = elem.getAttribute("data-user-id");
+        var content = prompt("Write down your comment:");
+        var endpoint = `http://127.0.0.1:8000/posts/comment/create/?post_id=${postId}&user_id=${userId}&content=${content}`;
+        var xmlHttp = new XMLHttpRequest();
+
+        xmlHttp.open("GET", endpoint, false); // false => asynchronous request
+        xmlHttp.send(null);
+        location.replace("http://127.0.0.1:8000/posts/detail/" + postId + "#comments");
+    }
+
+    function handleLikeClick(elem) {
+        var postId = elem.getAttribute("data-post-id");
+        var endpoint = `http://127.0.0.1:8000/posts/like/create/?post_id=${postId}`;
+        var xmlHttp = new XMLHttpRequest();
+
+        xmlHttp.open("GET", endpoint, false); // false => asynchronous request
+        xmlHttp.send(null);
+        alert("You successfully liked the post.");
+        location.reload();
+    }
+</script>
