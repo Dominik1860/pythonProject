@@ -13,7 +13,6 @@ class EditProfileView(FormView):
     """
     Render a form for editing Profile
     """
-    template_name = 'profile/edit.html'
     form_class = forms.UpdateProfileForm
     success_url = '/home'
     context = {}
@@ -26,7 +25,7 @@ class EditProfileView(FormView):
         self.context.update(form=forms.UpdateProfileForm(instance=profile))
         self.context.update(mugshot=profile.mugshot)
         self.context.update(user=request.user)
-        return render(request, reverse('update_profile'), self.context)
+        return render(request, 'profile/edit.html', self.context)
 
     def post(self, request):
         """

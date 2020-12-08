@@ -10,6 +10,8 @@
                 <small>Posted by <a href="{% url 'detail_profile' pk=post.user.id %}">{{ post.user }}<a/></small>
             </p>
             <p>{{ post.description }}</p>
+            <a data-post-id="{{ post.id }}" onclick="handleCommentClick(this)"><button class="btn btn-primary">Comment</button></a>
+            <a data-post-id="{{ post.id }}" onclick="handleLikeClick(this)"><button class="btn btn-primary">Like</button></a>
             <hr>
         </div>
 

@@ -47,7 +47,7 @@
 
         xmlHttp.open("GET", endpoint, false); // false => asynchronous request
         xmlHttp.send(null);
-        location.replace("http://127.0.0.1:8000/posts/detail/" + postId + "#comments");
+        location.replace("http://127.0.0.1:8000/posts/detail/" + postId);
     }
 
     function handleLikeClick(elem) {
