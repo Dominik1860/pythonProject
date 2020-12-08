@@ -155,4 +155,4 @@ DATE_INPUT_FORMATS = [
 ]
 
 # heroku settings
-django_heroku.settings(local())
+django_heroku.settings(locals())
