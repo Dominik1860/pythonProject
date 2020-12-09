@@ -25,14 +25,21 @@ def create_post(request):
     Form to create a new post
     """
     if request.method == "GET":
-        form = forms.CreatePostForm({
+       # try:
+            form = forms.CreatePostForm({
             'user': request.user.id
-        })
+            })
 
-        context = {
+            context = {
             'form': form
-        }
-        return render(request, 'post/create.html', context)
+            }
+            return render(request, 'post/create.html', context)
+
+       # except SomeRandomError:
+       #     return Http302 ("Bad request, something went wrong")
+
+        #else:
+        #    return Http302 ("Form is invalid")
 
     if request.method == "POST":
         form = forms.CreatePostForm(data=request.POST, files=request.FILES)
