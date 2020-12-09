@@ -4,6 +4,9 @@ from . import views
 
 urlpatterns = [
     path('update/', views.EditProfileView.as_view(), name='update_profile'),
+    path('detail/', views.DetailView.as_view(), name='my_profile'),
     path('detail/<int:pk>', views.DetailView.as_view(), name='detail_profile'),
-    # path('test/', views.TestView.as_view(), name='test_post'),
+    path('addfriend/', views.add_friend,),
+    path('removefriend/', views.remove_friend),
 ]
+

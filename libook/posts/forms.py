@@ -17,10 +17,6 @@ class CreatePostForm(forms.ModelForm):
                 'class': 'form-control'
             })
 
-        self.fields['user'].widget.attrs['class'] = 'form-control user-hidden-field'
-
-
     class Meta:
         model = Post
         fields = '__all__'
-        exclude = ['number_of_likes']

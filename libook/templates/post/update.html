@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<div class="container">
+    <div class="col-12">
+        <h1 class="text-center">Update a post</h1>
+        <hr>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <img alt="" class="img-fluid detail-image mx-auto d-block" src="/{{post_image}}">
+        </div>
+        <div class="col-6">
+            <form action="{% url 'update_post' pk=post_id%}" enctype="multipart/form-data" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="btn btn-primary" type="submit">Save changes</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

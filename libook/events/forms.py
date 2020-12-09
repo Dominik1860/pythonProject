@@ -17,7 +17,9 @@ class CreateEventForm(forms.ModelForm):
                 'class': 'form-control'
             })
 
-        self.fields['user'].widget.attrs['class'] = 'form-control user-hidden-field'
+        self.fields['admin'].widget.attrs.update({
+            'class': 'test'
+        })
 
     class Meta:
         model = Event

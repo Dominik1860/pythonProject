@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 from django.contrib.auth import settings
+from datetime import datetime
 
 class Event(models.Model):
     """
@@ -10,7 +11,7 @@ class Event(models.Model):
     members = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="event_members", default=None, blank=True)
     name = models.CharField(max_length=255, null=False, blank=False)
     description = models.TextField(max_length=255, null=True, blank=True)
-    when = models.DateTimeField(null=False, blank=False)
+    when = models.DateTimeField(null=False, blank=False, default=datetime.now)
     where = models.CharField(max_length=255, null=False, blank=False)
     timestamp = models.DateTimeField(auto_now_add=True)
 

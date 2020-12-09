@@ -38,20 +38,50 @@ class EditProfileView(FormView):
 
         return redirect(reverse('update_profile'))
 
-
 class DetailView(TemplateView):
     """
     Detail page of a profile
     """
     template_name = 'profile/detail.html'
 
-    def get_context_data(self, **kwargs):
-        profile = Profile.objects.select_related('user').get(pk=kwargs['pk'])
+    def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(**kwargs)
+
+        if len(kwargs) == 0:
+            profile = Profile.objects.select_related('user').get(pk=self.request.user.id)
+        else:
+            profile = Profile.objects.select_related('user').get(pk=kwargs['pk'])
+
+        friends = profile.friends.all().values_list()
+
+        if self.request.user.id == profile.user.id:
+            context['friendly'] = -1
+        elif (friends and self.request.user.id in friends[0]):
+            context['friendly'] = 1
+        else:
+            context['friendly'] = 0
+
+        # print(f"request user id = {self.request.user.id}")
+        # print(f"profile user id = {profile.user.id}")
+        # print(f"friendly = {context['friendly']}")
+
         context['profile'] = profile
         context['posts'] = Post.objects.filter(user__id=profile.user.id)
-        context['number_of_posts'] = context['posts'].count()
         context['friends'] = profile.friends.all()
-        context['number_of_friends'] = context['friends'].count()
 
         return context
+
+def add_friend(request):
+    profile = Profile.objects.get(user__id=request.user.id)
+    profile.friends.add(request.GET.get('friend_id'))
+    profile.save()
+
+    return None
+
+def remove_friend(request):
+    profile = Profile.objects.get(user__id=request.user.id)
+    profile.friends.remove(request.GET.get('friend_id'))
+    profile.save()
+
+    return None
+

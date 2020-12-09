@@ -1,11 +1,6 @@
 <div class="container-fluid footer">
     <div class="container">
-        <div class="row py-2">
-            <div class="col">text</div>
-            <div class="col">text</div>
-            <div class="col">text</div>
-        </div>
-        <div class="row py-2 copyright">
+        <div class="row pt-4 pb-3 mt-2 copyright">
             <div class="col-12">
                 <p>Copyright 2020 LiBook<br/>
                     Created by Dominik, Lukas, Leonard</p>
@@ -16,6 +11,28 @@
 
 <!--Handles commenting and likes-->
 <script type="text/javascript">
+    function handleAddToFriendsClick(elem){
+        var friendId = elem.getAttribute("data-friend-id");
+        var endpoint = `http://127.0.0.1:8000/profile/addfriend/?friend_id=${friendId}`;
+        var xmlHttp = new XMLHttpRequest();
+
+        xmlHttp.open("GET", endpoint, false);
+        xmlHttp.send();
+        // alert("You have added a new friend.");
+        location.reload();
+    }
+
+    function handleRemoveFromFriendsClick(elem){
+        var friendId = elem.getAttribute("data-friend-id");
+        var endpoint = `http://127.0.0.1:8000/profile/removefriend/?friend_id=${friendId}`;
+        var xmlHttp = new XMLHttpRequest();
+
+        xmlHttp.open("GET", endpoint, false);
+        xmlHttp.send();
+        // alert("You have removed this friend.");
+        location.reload();
+    }
+
     function handleEventSignupButtonClick(elem) {
         var eventId = elem.getAttribute("data-event-id");
         var endpoint = `http://127.0.0.1:8000/events/signup/?event_id=${eventId}`;
@@ -23,7 +40,7 @@
 
         xmlHttp.open("GET", endpoint, false); // false => asynchronous request
         xmlHttp.send(null);
-        alert("You have successfully signed up.");
+        // alert("You have successfully signed up.");
         location.reload();
     }
 
@@ -34,7 +51,7 @@
 
         xmlHttp.open("GET", endpoint, false); // false => asynchronous request
         xmlHttp.send(null);
-        alert("You have successfully unsubscribed.");
+        // alert("You have successfully unsubscribed.");
         location.reload();
     }
 
@@ -57,7 +74,7 @@
 
         xmlHttp.open("GET", endpoint, false); // false => asynchronous request
         xmlHttp.send(null);
-        alert("You successfully liked the post.");
+        // alert("You successfully liked the post.");
         location.reload();
     }
 </script>

@@ -5,16 +5,18 @@ from . import views
 
 comment_urlpattern = [
     path('create/', views.create_comment, name='create_comment'),
-    path('remove/', views.remove_comment, name='remove_comment'),
+    # path('remove/', views.remove_comment, name='remove_comment'),
 ]
 
 like_urlpattern = [
     path('create/', views.create_like, name='create_like'),
-    path('remove/', views.remove_like, name='remove_like'),
+    # path('remove/', views.remove_like, name='remove_like'),
 ]
 
 urlpatterns = [
     path('create/', views.create_post, name='create_post'),
+    # path('update/', views.UpdatePostView.as_view(), name='update_post_POST'),
+    path('update/<int:pk>/', views.UpdatePostView.as_view(), name='update_post'),
     path('detail/<int:pk>/', views.DetailView.as_view(), name='detail_post'),
     path('like/', include(like_urlpattern)),
     path('comment/', include(comment_urlpattern)),

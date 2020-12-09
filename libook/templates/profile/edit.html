@@ -4,7 +4,7 @@
 
 <div class="container">
     <div class="col-12">
-        <h1 class="text-center">{{ user.first_name }} {{ user.last_name }}</h1>
+        <h1 class="text-center">Edit your profile</h1>
         <hr>
     </div>
     <div class="row">
@@ -12,6 +12,7 @@
             <img alt="" class="img-fluid detail-image mx-auto d-block" src="/{{ mugshot }}">
         </div>
         <div class="col-6">
+            <h6>{{ user.first_name }} {{ user.last_name }}</h6>
             <form action="{% url 'update_profile' %}" enctype="multipart/form-data" method="post">
                 {% csrf_token %}
                 {{ form.as_p }}

@@ -21,6 +21,7 @@ class UserRegisterForm(UserCreationForm):
                 'class': 'form-control'
             })
 
+
 class UpdateProfileForm(forms.ModelForm):
     """
     Updates a logged in user on /profile/edit
@@ -39,5 +40,4 @@ class UpdateProfileForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = '__all__'
-
+        exclude = ('friends',)

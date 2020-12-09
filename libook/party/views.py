@@ -38,7 +38,7 @@ def create_new(request):
         context = {
             'form': form
         }
-        return render(request, 'party/create.html', context)
+        return render(request, 'party/update.html', context)
 
     if request.method == "NEW PARTY":
         form = forms.CreatePartyForm(data=request.PARTY, files=request.FILES)

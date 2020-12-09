@@ -2,6 +2,10 @@
 
 {% block body %}
 <div class="container">
+    <div class="col-12">
+        <h1 class="text-center">Event details</h1>
+        <hr>
+    </div>
     <div class="row">
         <div class="col-md-8 col-12">
             <h1>{{ event.name }}</h1>
@@ -18,6 +22,10 @@
                     onclick="handleEventSignupButtonClick(this)">Sign up
             </button>
             {% endif %}
+
+            {% if isowner %}
+            <a href="{% url 'update_event' pk=event.id %}"><button class="btn btn-outline-primary">Edit</button></a>
+            {% endif%}
 
 
             <hr>

@@ -5,20 +5,36 @@
 <!--HEADER-->
 <div class="container">
     <div class="row">
+        <div class="col-12">
+            <h1 class="text-center">
+                Profile detail
+            </h1>
+            <hr>
+        </div>
         <div class="col-md-3">
             <img alt="Profile picture" class="img-fluid" src="/{{ profile.mugshot }}">
         </div>
         <div class="col-md-6 my-auto">
-            <h1>
+            <h6>
                 {{ profile.user.first_name }} {{ profile.user.last_name }}
-            </h1>
+            </h6>
             <p>
                 Phone: {{ profile.telephone }} <br/>
                 E-mail: {{ profile.user.email }}
             </p>
-            <a href="#">
-                <button class="btn btn-primary">Add to friends</button>
+            {% if friendly == -1 %}
+            <a href="{% url 'update_profile' %}">
+                <button class="btn btn-primary">Edit my profile</button>
             </a>
+            {% elif friendly %}
+            <button class="btn btn-primary" data-friend-id="{{profile.user.id}}"
+                    onclick="handleRemoveFromFriendsClick(this)">Remove from friends
+            </button>
+            {% elif not friendly %}
+            <button class="btn btn-primary" data-friend-id="{{profile.user.id}}"
+                    onclick="handleAddToFriendsClick(this)">Add to friends
+            </button>
+            {% endif %}
         </div>
         <div class="col-md-3">
             <!--            empty-->
@@ -29,8 +45,8 @@
     <!--LIST OF FRIENDS-->
     <div class="row">
         <div class="col-12">
-            {% if number_of_friends %}
-            <h6>Friends list ({{number_of_friends}})</h6>
+            {% if friends %}
+            <h6>Friends list ({{friends|length}})</h6>
             {% else %}
             <h6>This user has no friends.</h6>
             {% endif %}
@@ -53,8 +69,8 @@
     <!--FEED-->
     <div class="row">
         <div class="col-12">
-            {% if number_of_posts %}
-            <h6>All posts ({{number_of_posts}})</h6>
+            {% if posts %}
+            <h6>All posts ({{posts|length}})</h6>
             {% else %}
             <h6>This user has no posts.</h6>
             {% endif %}

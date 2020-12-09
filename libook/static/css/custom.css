@@ -43,7 +43,7 @@ h2 {
 
 /*Sticky footer edit*/
 section.body {
-    min-height: 80vh;
+    min-height: 90vh;
 }
 
 header {
@@ -69,6 +69,16 @@ footer {
 
 .btn-secondery {
     background-color: #333 !important;
+}
+
+.btn-outline-primary{
+    color: #cd2b00 !important;
+    border-color: #cd2b00 !important;
+}
+
+.btn-outline-primary:hover{
+    color: #fff !important;
+    background-color: #cd2b00 !important;
 }
 
 
@@ -126,6 +136,7 @@ td > input {
     display: inline-block;
     float: left;
     width: 50% !important;
+    padding: 0.5rem !important;
 }
 
 .vertical-card-image > img {
@@ -136,6 +147,7 @@ td > input {
     display: inline-block;
     float: left;
     width: 50% !important;
+    padding: 0.5rem !important;
 }
 
 @media only screen and (max-width: 576px) {

@@ -2,20 +2,29 @@
 
 {% block body %}
 
-<form action="{% url 'create_post' %}" enctype="multipart/form-data" method="post">
-    {% csrf_token %}
-    {% for field in form %}
-    <div class="form-group">
-        {{ field.label }}
-        {{ field }}
-        <small>{{ field.help_text }}</small>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="text-center">Create a new post</h1>
+            <hr>
+        </div>
+        <form action="{% url 'create_post' %}" enctype="multipart/form-data" method="post">
+            {% csrf_token %}
+            {% for field in form %}
+            <div class="form-group">
+                {{ field.label }}
+                {{ field }}
+                <small>{{ field.help_text }}</small>
+            </div>
+            {% endfor %}
+            <button class="btn btn-primary" type="submit">Save changes</button>
+        </form>
+
+        <style>
+
+        </style>
     </div>
-    {% endfor %}
-    <button class="btn btn-primary" type="submit">Save changes</button>
-</form>
+</div>
 
-<style>
-
-</style>
 
 {% endblock %}
