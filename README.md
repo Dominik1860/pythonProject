@@ -24,4 +24,20 @@ Technologies used for the project:
 	4. Deployment: Heroku
 
 
+
+Required packeages for usage:
+
+	asgiref==3.3.1
+	dj-database-url==0.5.0
+	Django==3.1.3
+	django-heroku==0.3.1
+	djangorestframework==3.12.2
+	gunicorn==20.0.4
+	Pillow==8.0.1
+	psycopg2==2.8.6
+	pytz==2020.4
+	sqlparse==0.4.1
+	whitenoise==5.2.0
+
+
 This repository is open for contribution. If you have any improvement in mind, you should make the pull request with relevant details and we shall add it.
