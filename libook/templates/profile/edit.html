@@ -8,11 +8,11 @@
         <hr>
     </div>
     <div class="row">
-        <div class="col-6">
+        <div class="col-md-6 col-12">
             <img alt="" class="img-fluid detail-image mx-auto d-block" src="/{{ mugshot }}">
         </div>
-        <div class="col-6">
-            <h6>{{ user.first_name }} {{ user.last_name }}</h6>
+        <div class="col-md-6 col-12">
+            <h6 class="mt-2">{{ user.first_name }} {{ user.last_name }}</h6>
             <form action="{% url 'update_profile' %}" enctype="multipart/form-data" method="post">
                 {% csrf_token %}
                 {{ form.as_p }}

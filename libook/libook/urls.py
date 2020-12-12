@@ -9,10 +9,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     # Authentication
-    path('', RedirectView.as_view(url='/login')), # Default redirect to /login
-    path('', include('django.contrib.auth.urls')), # All login requests
-    path('home/', login_required(views.HomeView.as_view()), name='home'), # Dashboard for logged in user
-    path('register/', views.register, name='register'), # Register a new user
+    path('', RedirectView.as_view(url='/login')),  # Default redirect to /login
+    path('', include('django.contrib.auth.urls')),  # All login requests
+    path('home/', login_required(views.HomeView.as_view()), name='home'),  # Dashboard for logged in user
+    path('register/', views.register, name='register'),  # Register a new user
 
     # Individual apps
     path('posts/', include('posts.urls')),
@@ -30,5 +30,3 @@ urlpatterns = [
 # accounts/ password_reset/done/ [name='password_reset_done']
 # accounts/ reset/<uidb64>/<token>/ [name='password_reset_confirm']
 # accounts/ reset/done/ [name='password_reset_complete']
-
-

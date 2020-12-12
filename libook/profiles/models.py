@@ -1,4 +1,3 @@
-from .enums import *
 from datetime import datetime
 from django.db import models
 from django.contrib.auth import settings
@@ -21,9 +20,10 @@ class Profile(models.Model):
     # https://docs.djangoproject.com/en/3.0/ref/models/fields/#django.db.models.ManyToManyField
 
     @receiver(post_save, sender=User)
-    def create_user_profile(sender, instance, created, **kwargs):
+    def create_user_profile(self, instance, created, **kwargs):
         """
         Trigger that creates Profile when djangos User is created
+        1st arg was sender
         """
         if created:
             Profile.objects.create(user=instance)

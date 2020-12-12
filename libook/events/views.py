@@ -62,7 +62,7 @@ class EventCreateView(FormView):
     form_class = forms.CreateEventForm()
     context = {}
 
-    def get(self, request, **kwargs):
+    def get(self, request):
         event = Event.objects.create(
             admin=self.request.user
         )

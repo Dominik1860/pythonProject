@@ -2,8 +2,6 @@ from django.db import models
 from django.conf import settings
 from profiles.models import Profile
 
-from .enums import *
-
 
 class Post(models.Model):
     """
@@ -18,6 +16,7 @@ class Post(models.Model):
     def __str__(self):
         return self.name + " (from " + self.user.username + ")"
 
+
 class Comment(models.Model):
     """
     Model class for a comment from a particular user (1:1) to a particular post (1:1)
@@ -28,6 +27,7 @@ class Comment(models.Model):
     post_id = models.ForeignKey('posts.post', on_delete=models.CASCADE)
     content = models.TextField(null=False, blank=False, max_length=255)
     timestamp = models.DateTimeField(auto_now_add=True)
+
 
 class Like(models.Model):
     """

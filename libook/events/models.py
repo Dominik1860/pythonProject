@@ -3,6 +3,7 @@ from django.conf import settings
 from django.contrib.auth import settings
 from datetime import datetime
 
+
 class Event(models.Model):
     """
     Event model class
@@ -17,6 +18,7 @@ class Event(models.Model):
 
     def __str__(self):
         return f'{self.name} ({self.when}, {self.where})'
+
 
 class EventInvitationRequest(models.Model):
     """

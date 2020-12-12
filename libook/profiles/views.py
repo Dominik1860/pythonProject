@@ -38,13 +38,14 @@ class EditProfileView(FormView):
 
         return redirect(reverse('update_profile'))
 
+
 class DetailView(TemplateView):
     """
     Detail page of a profile
     """
     template_name = 'profile/detail.html'
 
-    def get_context_data(self, *args, **kwargs):
+    def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
         if len(kwargs) == 0:
@@ -56,7 +57,7 @@ class DetailView(TemplateView):
 
         if self.request.user.id == profile.user.id:
             context['friendly'] = -1
-        elif (friends and self.request.user.id in friends[0]):
+        elif friends and self.request.user.id in friends[0]:
             context['friendly'] = 1
         else:
             context['friendly'] = 0
@@ -71,6 +72,7 @@ class DetailView(TemplateView):
 
         return context
 
+
 def add_friend(request):
     profile = Profile.objects.get(user__id=request.user.id)
     profile.friends.add(request.GET.get('friend_id'))
@@ -78,10 +80,10 @@ def add_friend(request):
 
     return None
 
+
 def remove_friend(request):
     profile = Profile.objects.get(user__id=request.user.id)
     profile.friends.remove(request.GET.get('friend_id'))
     profile.save()
 
     return None
-
