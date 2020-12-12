@@ -5,7 +5,7 @@ from profiles.models import Profile
 
 class Post(models.Model):
     """
-    Model class for a post from a particular user (1:1)
+    Model class for a post from a particular user (1:1).
     """
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default=None, null=True)
     name = models.CharField(max_length=255)
@@ -19,11 +19,10 @@ class Post(models.Model):
 
 class Comment(models.Model):
     """
-    Model class for a comment from a particular user (1:1) to a particular post (1:1)
+    Model class for a comment from a particular user (1:1) to a particular post (1:1).
     """
     user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     # https://stackoverflow.com/questions/34305805/django-foreignkeyuser-in-models
-
     post_id = models.ForeignKey('posts.post', on_delete=models.CASCADE)
     content = models.TextField(null=False, blank=False, max_length=255)
     timestamp = models.DateTimeField(auto_now_add=True)
@@ -31,9 +30,9 @@ class Comment(models.Model):
 
 class Like(models.Model):
     """
-    Model class for a comment from a particular user (1:1) to a particular post (1:1)
-    https://stackoverflow.com/questions/34305805/django-foreignkeyuser-in-models
+    Model class for a like from a particular user (1:1) to a particular post (1:1).
     """
     user_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    # https: // stackoverflow.com / questions / 34305805 / django - foreignkeyuser - in -models
     post_id = models.ForeignKey('posts.post', on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)

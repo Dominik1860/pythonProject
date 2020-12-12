@@ -6,7 +6,7 @@ from profiles.models import Profile
 
 class UserRegisterForm(UserCreationForm):
     """
-    Registers a new user on /login page
+    Form to register a new user on /login page.
     """
     email = forms.EmailField()
 
@@ -24,7 +24,7 @@ class UserRegisterForm(UserCreationForm):
 
 class UpdateProfileForm(forms.ModelForm):
     """
-    Updates a logged in user on /profile/edit
+    Form to update a logged in user on /profile/edit.
     """
 
     def __init__(self, *args, **kwargs):

@@ -4,7 +4,7 @@ from .models import Party
 
 class CreatePartyForm(forms.ModelForm):
     """
-    Form for creating a new party entity
+    Form for creating a new party entity.
     """
 
     def __init__(self, *args, **kwargs):

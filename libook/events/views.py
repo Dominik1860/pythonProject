@@ -11,7 +11,7 @@ from datetime import datetime
 
 class EventListView(ListView):
     """
-    returns list of all events
+    Class that returns list of all events.
     """
     model = Event
     template_name = 'event/index.html'
@@ -24,7 +24,7 @@ class EventListView(ListView):
 
 class EventUserFilteredListView(ListView):
     """
-    returns list of all events
+    Class that returns list of all events of an user.
     """
     model = Event
     template_name = 'event/my_events.html'
@@ -41,7 +41,7 @@ class EventUserFilteredListView(ListView):
 
 class EventDetailView(TemplateView):
     """
-    Detail page of an event
+    Class that returns detail page of an event.
     """
     template_name = 'event/detail.html'
 
@@ -59,6 +59,9 @@ class EventDetailView(TemplateView):
 
 
 class EventCreateView(FormView):
+    """
+    Renders a form for creating an event.
+    """
     form_class = forms.CreateEventForm()
     context = {}
 
@@ -81,6 +84,9 @@ class EventCreateView(FormView):
 
 
 class EventUpdateView(FormView):
+    """
+    Render a form for editing an event.
+    """
     form_class = forms.CreateEventForm()
     context = {}
 
@@ -94,7 +100,7 @@ class EventUpdateView(FormView):
 
 def create(request):
     """
-    Form to create a new event
+    Form to create a new event.
     """
     if request.method == "GET":
         form = forms.CreateEventForm({
@@ -116,6 +122,9 @@ def create(request):
 
 
 def signup(request):
+    """
+    Form to signup for an event.
+    """
     event_id = request.GET.get('event_id')
     user_id = request.user.id
 
@@ -126,6 +135,9 @@ def signup(request):
 
 
 def unsubscribe(request):
+    """
+    Form to unsubscribe from an event.
+    """
     event_id = request.GET.get('event_id')
     user_id = request.user.id
 

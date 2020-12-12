@@ -4,7 +4,7 @@ from .models import Event
 
 class CreateEventForm(forms.ModelForm):
     """
-    Form for creating a new event entity
+    Form for creating a new event entity.
     """
 
     def __init__(self, *args, **kwargs):

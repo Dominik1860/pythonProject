@@ -4,7 +4,7 @@ from .models import Post
 
 class CreatePostForm(forms.ModelForm):
     """
-    Form for creating a new post entity
+    Form for creating a new post entity.
     """
 
     def __init__(self, *args, **kwargs):

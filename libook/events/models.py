@@ -6,7 +6,7 @@ from datetime import datetime
 
 class Event(models.Model):
     """
-    Event model class
+    Model class for an event from a particular user (1:1).
     """
     admin = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=False)
     members = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="event_members", default=None, blank=True)

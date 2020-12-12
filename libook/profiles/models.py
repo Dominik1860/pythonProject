@@ -8,7 +8,7 @@ from django.dispatch import receiver
 
 class Profile(models.Model):
     """
-    Profile model class
+    Model class for a profile from a particular user (1:1).
     """
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, related_name='User')
     bio = models.TextField(max_length=255, null=True, blank=True)
@@ -23,7 +23,7 @@ class Profile(models.Model):
     def create_user_profile(self, instance, created, **kwargs):
         """
         Trigger that creates Profile when djangos User is created
-        1st arg was sender
+        1st arg was sender.
         """
         if created:
             Profile.objects.create(user=instance)

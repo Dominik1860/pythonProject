@@ -11,7 +11,7 @@ from posts.models import Post
 
 class EditProfileView(FormView):
     """
-    Render a form for editing Profile
+    Render a form for editing profile.
     """
     form_class = forms.UpdateProfileForm
     success_url = '/home'
@@ -19,7 +19,7 @@ class EditProfileView(FormView):
 
     def get(self, request):
         """
-        Handles GET request and returns form for editing
+        Handles GET request and returns form for editing.
         """
         profile = Profile.objects.get(user=User.objects.get(pk=request.user.id))
         self.context.update(form=forms.UpdateProfileForm(instance=profile))
@@ -29,7 +29,7 @@ class EditProfileView(FormView):
 
     def post(self, request):
         """
-        Handles new changes in POST request
+        Handles new changes in POST request.
         """
         profile = Profile.objects.get(pk=request.user.id)
         form = forms.UpdateProfileForm(instance=profile, data=request.POST, files=request.FILES)
@@ -41,7 +41,7 @@ class EditProfileView(FormView):
 
 class DetailView(TemplateView):
     """
-    Detail page of a profile
+    Detail page of a profile.
     """
     template_name = 'profile/detail.html'
 
@@ -74,6 +74,9 @@ class DetailView(TemplateView):
 
 
 def add_friend(request):
+    """
+    Form to add a friend to a user.
+    """
     profile = Profile.objects.get(user__id=request.user.id)
     profile.friends.add(request.GET.get('friend_id'))
     profile.save()
@@ -82,6 +85,9 @@ def add_friend(request):
 
 
 def remove_friend(request):
+    """
+    Form to remove a friend from a user.
+    """
     profile = Profile.objects.get(user__id=request.user.id)
     profile.friends.remove(request.GET.get('friend_id'))
     profile.save()

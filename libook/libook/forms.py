@@ -3,6 +3,9 @@ from django.contrib.auth.models import User
 
 
 class CommentForm(forms.Form):
+    """
+    Form to for comment.
+    """
     content = forms.CharField(label='Content', max_length=255)
     image = forms.ImageField(allow_empty_file=True)
 

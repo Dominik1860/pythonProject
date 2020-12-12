@@ -8,14 +8,14 @@ from . import forms
 
 class UpdatePostView(FormView):
     """
-    Render a form for editing Profile
+    Render a form for editing Profile.
     """
     form_class = forms.CreatePostForm()
     context = {}
 
     def get(self, request, **kwargs):
         """
-        Handles GET request and returns form for editing
+        Handles GET request and returns form for editing.
         """
         post = Post.objects.get(pk=kwargs['pk'])
         self.context.update(post_id=post.id)
@@ -25,7 +25,7 @@ class UpdatePostView(FormView):
 
     def post(self, request, pk):
         """
-        Handles new changes in POST request
+        Handles new changes in POST request.
         """
         post = Post.objects.get(pk=pk)
         form = forms.CreatePostForm(instance=post, data=request.POST, files=request.FILES)
@@ -37,7 +37,7 @@ class UpdatePostView(FormView):
 
 class DetailView(TemplateView):
     """
-    Detail page of a post
+    Detail page of a post.
     """
     template_name = 'post/detail.html'
 
@@ -51,7 +51,7 @@ class DetailView(TemplateView):
 
 def create_post(request):
     """
-    Form to create a new post
+    Form to create a new post.
     """
     if request.method == "GET":
         # try:
@@ -82,6 +82,9 @@ def create_post(request):
 # HANDLING COMMENTS AND LIKES
 
 def create_comment(request):
+    """
+    Form to create a comment on a post.
+    """
     user = request.user
     post = Post.objects.get(pk=request.GET.get('post_id'))
     content = request.GET.get('content')
@@ -93,6 +96,9 @@ def create_comment(request):
 
 
 def create_like(request):
+    """
+    Form to create a like on a post.
+    """
     user = request.user
     post = Post.objects.get(pk=request.GET.get('post_id'))
 
