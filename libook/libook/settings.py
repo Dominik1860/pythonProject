@@ -83,23 +83,23 @@ WSGI_APPLICATION = 'libook.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3test',
-    }
-}
-
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'HOST': 'ec2-54-225-254-115.compute-1.amazonaws.com',
-#         'NAME': 'dficb7p1ip5ut',
-#         'USER': 'xhqggcnltqveiw',
-#         'PORT': '5432',
-#         'PASSWORD': '42b2d81855b61f0505f118c001a0c36d08ef98abb61c52fca7b7d8d47b23191e',
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3test',
 #     }
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'HOST': 'ec2-54-225-254-115.compute-1.amazonaws.com',
+        'NAME': 'dficb7p1ip5ut',
+        'USER': 'xhqggcnltqveiw',
+        'PORT': '5432',
+        'PASSWORD': '42b2d81855b61f0505f118c001a0c36d08ef98abb61c52fca7b7d8d47b23191e',
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators

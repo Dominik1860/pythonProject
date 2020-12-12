@@ -20,7 +20,7 @@ class Profile(models.Model):
     # https://docs.djangoproject.com/en/3.0/ref/models/fields/#django.db.models.ManyToManyField
 
     @receiver(post_save, sender=User)
-    def create_user_profile(self, instance, created, **kwargs):
+    def create_user_profile(sender, instance, created, **kwargs):
         """
         Trigger that creates Profile when djangos User is created
         1st arg was sender.
@@ -29,4 +29,5 @@ class Profile(models.Model):
             Profile.objects.create(user=instance)
 
     def __str__(self):
-        return self.user.get_username()
+        # return self.user.get_username()
+        return self.user.first_name + " " + self.user.last_name

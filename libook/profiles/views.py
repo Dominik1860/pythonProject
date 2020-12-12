@@ -1,13 +1,26 @@
 from django.shortcuts import render, redirect, reverse
 from django.db.models import Count
-from django.views.generic.edit import FormView
+from django.http import HttpResponse
 from django.views.generic import TemplateView
+from django.views.generic.list import ListView
+from django.views.generic.edit import FormView
 from django.contrib.auth.models import User
 from pathlib import Path
 from . import forms
 from .models import Profile
 from posts.models import Post
 
+
+class ProfileListView(ListView):
+    """
+    returns list of all people signedup on libook
+    """
+    model = Profile
+    template_name = 'profile/index.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
 
 class EditProfileView(FormView):
     """
@@ -62,16 +75,11 @@ class DetailView(TemplateView):
         else:
             context['friendly'] = 0
 
-        # print(f"request user id = {self.request.user.id}")
-        # print(f"profile user id = {profile.user.id}")
-        # print(f"friendly = {context['friendly']}")
-
         context['profile'] = profile
         context['posts'] = Post.objects.filter(user__id=profile.user.id)
         context['friends'] = profile.friends.all()
 
         return context
-
 
 def add_friend(request):
     """

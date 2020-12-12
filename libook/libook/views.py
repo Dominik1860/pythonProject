@@ -32,7 +32,6 @@ class HomeView(ListView):
 
     def get_queryset(self):
         current_user = Profile.objects.get(pk=self.request.user.id)
-        # queryset is not iterable, so got to fetch dict using values(), or tuple by values_list()
         friends = current_user.friends.all().values()
         all_posts = Post.objects.filter(user__id=self.request.user.id).order_by('-timestamp')
 
@@ -45,7 +44,6 @@ class HomeView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['form'] = CreatePostForm({'user': self.request.user.id})
-        # context['feed'] = Post.objects.filter(user__id=self.request.user.id)
         context['logged_user_id'] = self.request.user.id
         return context
 
