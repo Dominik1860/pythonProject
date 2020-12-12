@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="text-center">All LiBook users</h1>
+            <hr>
+        </div>
+        {% for profile in object_list %}
+        <div class="col-md-6 col-12 py-3">
+            <div class="vertical-card">
+                <div class="vertical-card-image">
+                    <a href="{% url 'detail_profile' pk=profile.user_id %}">
+                        <img alt="Profile picture" src="/{{profile.mugshot}}" class="img-fluid" style="max-height: 200px">
+                    </a>
+                </div>
+                <div class="vertical-card-body">
+                    <h5 class="text-secondary">{{ profile }}</h5>
+                    <p>{{ profile.bio }}</p>
+                    <p>Email: {{ profile.user }}</p>
+                    <a href="{% url 'detail_profile' pk=profile.user_id %}">
+                        <button class="btn btn-outline-secondary">See details</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <hr>
+        {% empty %}
+        <div class="col-12">
+            <p>There are no registered users.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+</div>
+
+{% endblock %}

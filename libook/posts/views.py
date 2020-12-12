@@ -1,3 +1,4 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, reverse, redirect
 from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
@@ -46,37 +47,22 @@ class DetailView(TemplateView):
         context['post'] = Post.objects.get(pk=kwargs['pk'])
         context['comments'] = context['post'].comment_set.all().order_by('-timestamp')
         context['likes'] = context['post'].like_set.all()
+        if self.request.user == context['post'].user:
+            context['editable'] = True
+
         return context
 
 
 def create_post(request):
-    """
-    Form to create a new post
-    """
-    if request.method == "GET":
-        # try:
-        form = forms.CreatePostForm({
-            'user': request.user.id
-        })
-
-        context = {
-            'form': form
-        }
-        return render(request, 'post/update.html', context)
-
-    # except SomeRandomError:
-    #     return Http302 ("Bad request, something went wrong")
-
-    # else:
-    #    return Http302 ("Form is invalid")
-
     if request.method == "POST":
-        form = forms.CreatePostForm(data=request.POST, files=request.FILES)
+        post = Post.objects.create()
+        form = forms.CreatePostForm(instance=post, data=request.POST, files=request.FILES)
         if form.is_valid():
             form.save(commit=True)
             return HttpResponseRedirect(reverse('home'))
 
         return HttpResponse("POST")
+
 
 
 # HANDLING COMMENTS AND LIKES

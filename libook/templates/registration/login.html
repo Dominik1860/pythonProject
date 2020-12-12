@@ -1,6 +1,12 @@
 {% extends 'base.html' %}
 
 {% block body %}
+{% if user.is_authenticated %}
+<script type="text/javascript">
+    // Welcome to spaghetti code. Didnt know how else to fix this. :D
+    location.replace('/home');
+</script>
+{% else %}
 <div class="container-fluid login_background">
     <div class="container py-5">
         <div class="row mb-5 py-5">
@@ -60,9 +66,5 @@
         </div>
     </div>
 </div>
-
-
-<!--{# Assumes you setup the password_reset view in your URLconf #}-->
-<!--<p><a href="{% url 'password_reset' %}">Lost password?</a></p>-->
-
+{% endif %}
 {% endblock %}
