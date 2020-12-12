@@ -5,14 +5,13 @@ A social media website to connect to fellow students built on Django Framework
 The following features are available to users:
 
 	1. Registration system is in place for useres to register
-	2. Users can make posts which can include a description and an image
-	3. Users can see all posts made by other users in chronological order
+	2. Users can make and edit posts which can include a description and an image
+	3. Users can see all posts made by friends in chronological order
 	4. Users can like and comment on posts of other users
-	5. (Users can search for other users and look at their profiles)
-	6. Users can send friend requests
-	7. Users can edit their own profile
-	8. Users can set up and join parties (groups)
-	9. Users can  set up and join events
+	5. Users can send friend requests
+	6. Users can edit their own profile
+	7. (Users can set up and join parties (groups))
+	8. Users can set up and join events
 	
 
 
