@@ -24,7 +24,7 @@ Technologies used for the project:
 
 
 
-Required packeages for usage:
+Required packages for usage:
 
 	asgiref==3.3.1
 	dj-database-url==0.5.0
