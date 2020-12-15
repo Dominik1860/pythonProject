@@ -13,7 +13,7 @@ from posts.models import Post
 
 class ProfileListView(ListView):
     """
-    returns list of all people signedup on libook
+    Returns list of all people signed-up on LiBook.
     """
     model = Profile
     template_name = 'profile/index.html'

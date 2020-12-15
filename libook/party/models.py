@@ -17,6 +17,8 @@ class Party(models.Model):
     genre = models.TextField(max_length=255, null=True, blank=True)
     image = models.ImageField(upload_to='static/imgs/party/', default='static/imgs/dummy_party.jpg')
 
+    def __str__(self):
+        return f'{self.name} ({self.when}, {self.where})'
 
 class PartyInvitationRequest(models.Model):
     """

@@ -27,6 +27,8 @@ class Comment(models.Model):
     content = models.TextField(null=False, blank=False, max_length=255)
     timestamp = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return self.name + " (from " + self.user.username + ")"
 
 class Like(models.Model):
     """
@@ -36,3 +38,6 @@ class Like(models.Model):
     # https: // stackoverflow.com / questions / 34305805 / django - foreignkeyuser - in -models
     post_id = models.ForeignKey('posts.post', on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name + " (from " + self.user.username + ")"
