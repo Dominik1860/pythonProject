@@ -12,7 +12,7 @@
             <div class="vertical-card">
                 <div class="vertical-card-body">
                     <h5 class="text-secondary">{{ event.name }}</h5>
-                    <p>{{ event.description }}</p>
+                    <p>{{ event.description|truncatechars:255 }}</p>
                     <p>
                         <a href="{% url 'detail_event' pk=event.id %}">
                             <button class="btn btn-primary">See details</button>

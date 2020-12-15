@@ -90,7 +90,7 @@
                     <div class="vertical-card-body">
                         <h5>{{ post.name }}</h5>
                 </a>
-                <p>{{ post.description }}</p>
+                <p>{{ post.description|truncatechars:127 }}</p>
                 <p>
                     <small><b>Uploaded on {{ post.timestamp }}</b></small><br><br>
                     <a href="">Comment</a>
