@@ -11,7 +11,7 @@ class Event(models.Model):
     admin = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=False)
     members = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="event_members", default=None, blank=True)
     name = models.CharField(max_length=255, null=False, blank=False)
-    description = models.TextField(max_length=255, null=True, blank=True)
+    description = models.TextField( null=True, blank=True)
     when = models.DateTimeField(null=False, blank=False, default=datetime.now)
     where = models.CharField(max_length=255, null=False, blank=False)
     timestamp = models.DateTimeField(auto_now_add=True)

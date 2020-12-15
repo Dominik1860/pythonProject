@@ -14,7 +14,7 @@
                     <a href="{% url 'detail_event' pk=event.id %}">
                         <h5 class="text-secondary">{{ event.name }}</h5>
                     </a>
-                    <p>{{ event.description }}</p>
+                    <p>{{ event.description|truncatechars:255 }}</p>
                     <p>
                         <a href="{% url 'detail_event' pk=event.id %}">
                             <button class="btn btn-primary">See details</button>
@@ -22,7 +22,7 @@
 
                         <br>
                         <small><b>
-                            Organizer: {{ event.admin }}<br>
+                            Organizer: {{ event.admin.first_name }} {{ event.admin.last_name }}<br>
                             Date: {{ event.when }}<br>
                             Place: {{ event.where }}
                         </b></small>

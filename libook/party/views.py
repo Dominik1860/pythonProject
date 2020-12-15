@@ -1,6 +1,7 @@
 from django.shortcuts import render, reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import TemplateView
+from django.views.generic.list import ListView
 from .models import Party
 from . import forms
 

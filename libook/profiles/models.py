@@ -5,7 +5,6 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-
 class Profile(models.Model):
     """
     Model class for a profile from a particular user (1:1).
@@ -31,3 +30,5 @@ class Profile(models.Model):
     def __str__(self):
         # return self.user.get_username()
         return self.user.first_name + " " + self.user.last_name
+
+

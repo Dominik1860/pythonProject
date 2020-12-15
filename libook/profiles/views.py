@@ -79,6 +79,8 @@ class DetailView(TemplateView):
         context['posts'] = Post.objects.filter(user__id=profile.user.id)
         context['friends'] = profile.friends.all()
 
+        print(profile)
+
         return context
 
 def add_friend(request):

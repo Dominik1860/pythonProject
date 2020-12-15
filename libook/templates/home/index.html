@@ -32,18 +32,18 @@
                 </p>
 
             </div>
-            </div>
-            </div>
-            </div>
-            <hr>
+        </div>
+    </div>
+</div>
+<hr>
 {% endfor %}
 {% else %}
-<p>There are no posts. Try searching for <a href="{% url 'list_profile' %}">new friends</a>.</p>
-<a href="/profile/update">
-    <button class="btn btn-primary">Update your profile</button>
+<p>There are no posts. Try searching for an <a href="{% url 'list_event' %}">event to attend</a>.</p>
+<a href="{% url 'list_profile' %}">
+    <button class="btn btn-primary">Find new friends</button>
 </a>
-<a href="{% url 'list_event' %}">
-    <button class="btn btn-primary">Attend an event</button>
+<a href="{% url 'update_profile' %}">
+    <button class="btn btn-outline-primary">Update your profile</button>
 </a>
 {% endif %}
 
@@ -57,7 +57,9 @@
         {{ form }}
         <button class="btn btn-primary mt-3" type="submit">Upload</button>
         <style>
-            #id_user{display: none}
+            #id_user {
+                display: none
+            }
         </style>
     </form>
 </div>
